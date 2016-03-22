@@ -38,8 +38,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
         super.viewWillAppear(animated)
         
         // make the number pad open by default
-        billTextField.delegate = self
-        billTextField.becomeFirstResponder()
+        if billTextField == nil || billTextField.text == "" {
+            billTextField.delegate = self
+            billTextField.becomeFirstResponder()
+        }
         
         // get stored defaults and display on UI
         self.setupView()

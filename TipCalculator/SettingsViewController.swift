@@ -31,7 +31,13 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     func loadSettings() {
         let defaults = NSUserDefaults.standardUserDefaults()
         let percent = defaults.doubleForKey("percent")
-        percentTextField.text = String(format: "%.2f", percent)
+        
+        if percent > 0 {
+            percentTextField.text = String(format: "%.2f", percent)
+        }
+        else {
+            percentTextField.text = tipPercentages[0].description
+        }
     }
     
     func saveSettings() {

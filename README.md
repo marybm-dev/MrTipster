@@ -12,3 +12,6 @@ Completed:
 * Optional: Making sure the keyboard is always visible and the bill amount is always the first responder. This way the user doesn't have to tap anywhere to use this app. Just launch the app and start typing.
 
 ![Video Walkthrough](TipsterCodePath.gif)
+
+# Installation
+Download the zip file and open the XCode Project to run the app with the Simulator

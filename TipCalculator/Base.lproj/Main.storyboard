@@ -337,8 +337,7 @@
                                     <constraint firstItem="cTc-9E-sdb" firstAttribute="bottom" secondItem="WEO-jM-qeQ" secondAttribute="bottom" id="p7y-ls-XUv"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r88-Re-mjs">
-                                <frame key="frameInset" minX="511" minY="40" width="76" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r88-Re-mjs">
                                 <color key="backgroundColor" red="0.20000000000000001" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="76" id="zHz-KB-Bci"/>
@@ -383,7 +382,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2008" y="452"/>
+            <point key="canvasLocation" x="1740" y="452"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="UCd-xF-FMF">

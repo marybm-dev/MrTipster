@@ -19,13 +19,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var splitFourLabel: UILabel!
     @IBOutlet weak var splitFiveLabel: UILabel!
 
-    let defaults = NSUserDefaults.standardUserDefaults()
+    let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // prevent the colored uiview from creeping under nav bar
-        self.edgesForExtendedLayout = UIRectEdge.None
+        self.edgesForExtendedLayout = UIRectEdge()
         
         self.shouldAnimate()
     }
@@ -34,7 +34,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         // make the number pad open by default
@@ -51,15 +51,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func setupView() {
         
         // retrieve defaults
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let index = defaults.integerForKey("controlIndex")
-        let percent = defaults.doubleForKey("percent")
-        let minutes = defaults.integerForKey("minutes")
+        let defaults = UserDefaults.standard
+        let index = defaults.integer(forKey: "controlIndex")
+        let percent = defaults.double(forKey: "percent")
+        let minutes = defaults.integer(forKey: "minutes")
         var amount: Double = 0
         
         // if less than 10 minutes, reload the amount
         if minutes < 10 {
-            amount = defaults.doubleForKey("amount")
+            amount = defaults.double(forKey: "amount")
             self.loadAmount(amount)
         }
         
@@ -70,7 +70,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.updateLabels(percent, amount: amount)
     }
     
-    func updateLabels(percent: Double, amount: Double) {
+    func updateLabels(_ percent: Double, amount: Double) {
         
         // recalculate the amounts
         let tip = amount * percent
@@ -83,12 +83,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
         splitFiveLabel.text = String(format: "$%.2f", total / 5)
     }
     
-    func saveAmount(amount: Double) {
-        defaults.setDouble(amount, forKey: "amount")
+    func saveAmount(_ amount: Double) {
+        defaults.set(amount, forKey: "amount")
         defaults.synchronize()
     }
     
-    func loadAmount(amount: Double) {
+    func loadAmount(_ amount: Double) {
         billTextField.text = String(format: "%.2f", amount)
     }
     
@@ -100,7 +100,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.splitFourLabel.alpha = 0
         self.splitFiveLabel.alpha = 0
         
-        UIView.animateWithDuration(0.75, animations: {
+        UIView.animate(withDuration: 0.75, animations: {
             self.tipControl.alpha = 1
             self.splitOneLabel.alpha = 1
             self.splitTwoLabel.alpha = 1
@@ -111,7 +111,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: IBActions
-    @IBAction func onEditingChanged(sender: AnyObject) {
+    @IBAction func onEditingChanged(_ sender: AnyObject) {
         
         // determine selected percent
         let tipPercentages = [0.18, 0.2, 0.22]
@@ -127,7 +127,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
     }
 
-    @IBAction func onTap(sender: AnyObject) {
+    @IBAction func onTap(_ sender: AnyObject) {
         view.endEditing(true)
     }
 }

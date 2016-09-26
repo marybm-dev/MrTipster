@@ -29,8 +29,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     }
     
     func loadSettings() {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let percent = defaults.doubleForKey("percent")
+        let defaults = UserDefaults.standard
+        let percent = defaults.double(forKey: "percent")
         
         if percent > 0 {
             percentTextField.text = String(format: "%.2f", percent)
@@ -41,41 +41,41 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     }
     
     func saveSettings() {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setDouble(Double(percentTextField.text!)!, forKey: "percent")
-        defaults.setInteger(self.controlIndex, forKey: "controlIndex")
+        let defaults = UserDefaults.standard
+        defaults.set(Double(percentTextField.text!)!, forKey: "percent")
+        defaults.set(self.controlIndex, forKey: "controlIndex")
         defaults.synchronize()
     }
     
     // MARK: Picker Delegate
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent: Int) -> Int {
         return tipPercentages.count
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent: Int) -> String? {
         return String(format: "%d", Int(tipPercentages[row] * 100))
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent: Int) {
         percentTextField.text = tipPercentages[row].description
         self.controlIndex = row
     }
     
     // MARK: IBActions
-    @IBAction func onTap(sender: AnyObject) {
+    @IBAction func onTap(_ sender: AnyObject) {
         view.endEditing(true)
     }
     
-    @IBAction func onCancelButtonPressed(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: {})
+    @IBAction func onCancelButtonPressed(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: {})
     }
     
-    @IBAction func onSaveButtonPressed(sender: AnyObject) {
+    @IBAction func onSaveButtonPressed(_ sender: AnyObject) {
         self.saveSettings()
-        self.dismissViewControllerAnimated(true, completion: {})
+        self.dismiss(animated: true, completion: {})
     }
 }

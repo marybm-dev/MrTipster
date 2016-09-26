@@ -10,27 +10,27 @@ import Foundation
 
 class Helper {
     
-    static func getDateFormat() -> NSDateFormatter {
-        let dateFormat: NSDateFormatter = NSDateFormatter()
+    static func getDateFormat() -> DateFormatter {
+        let dateFormat: DateFormatter = DateFormatter()
         dateFormat.dateFormat = "MM/dd/yyyy HH:mm:ss"
         
         return dateFormat
     }
     
-    static func getBackgroundTime(background: String, foreground: String) {
+    static func getBackgroundTime(_ background: String, foreground: String) {
         let dateFormat = self.getDateFormat()
         
-        let lastDate: NSDate = dateFormat.dateFromString(foreground)!
-        let todaysDate: NSDate = dateFormat.dateFromString(background)!
+        let lastDate: Date = dateFormat.date(from: foreground)!
+        let todaysDate: Date = dateFormat.date(from: background)!
         
-        let lastDiff: NSTimeInterval = lastDate.timeIntervalSinceNow
-        let todaysDiff: NSTimeInterval = todaysDate.timeIntervalSinceNow
-        let dateDiff: NSTimeInterval = lastDiff - todaysDiff
+        let lastDiff: TimeInterval = lastDate.timeIntervalSinceNow
+        let todaysDiff: TimeInterval = todaysDate.timeIntervalSinceNow
+        let dateDiff: TimeInterval = lastDiff - todaysDiff
         
         let minutes = Int(dateDiff / Double(60))
         
-        let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setInteger(minutes, forKey: "minutes")
+        let defaults = UserDefaults.standard
+        defaults.set(minutes, forKey: "minutes")
         defaults.synchronize()
     }
 }

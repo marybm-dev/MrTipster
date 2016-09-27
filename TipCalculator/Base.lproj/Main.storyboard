@@ -264,6 +264,7 @@
                     <connections>
                         <outlet property="amountView" destination="Abw-vl-1PD" id="zTn-f9-Hig"/>
                         <outlet property="billTextField" destination="EbD-xz-B99" id="eRL-zB-vr8"/>
+                        <outlet property="currencyLabel" destination="GrT-wQ-gaH" id="E3g-QB-mKT"/>
                         <outlet property="splitFiveLabel" destination="v6e-I8-SKH" id="2BE-uF-Or1"/>
                         <outlet property="splitFourLabel" destination="WTX-s3-tJH" id="1tc-GK-GMg"/>
                         <outlet property="splitOneLabel" destination="gcn-fr-xcp" id="bGA-HN-jKq"/>
@@ -278,6 +279,7 @@
                         <action selector="onTap:" destination="BYZ-38-t0r" id="93d-Xp-NMs"/>
                     </connections>
                 </tapGestureRecognizer>
+                <barButtonItem title="Settings" style="plain" id="Fsc-V5-ahL"/>
             </objects>
             <point key="canvasLocation" x="1265" y="452"/>
         </scene>
@@ -306,7 +308,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text=".25" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zuQ-w1-mve">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text=".25" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zuQ-w1-mve">
                                                     <frame key="frameInset" minY="6" width="125" height="35" maxX="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                                     <nil key="textColor"/>
@@ -334,7 +336,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="$" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="x4c-4W-vHH">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="$" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="x4c-4W-vHH">
                                                     <frame key="frameInset" minY="6" width="125" height="35" maxX="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                                     <nil key="textColor"/>
@@ -379,6 +381,7 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="currencyTextField" destination="x4c-4W-vHH" id="Okv-69-VmD"/>
                         <outlet property="percentTextField" destination="zuQ-w1-mve" id="kFg-hI-J0j"/>
                     </connections>
                 </tableViewController>
@@ -448,5 +451,5 @@
     <resources>
         <image name="avatar" width="85" height="85"/>
     </resources>
-    <color key="tintColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>

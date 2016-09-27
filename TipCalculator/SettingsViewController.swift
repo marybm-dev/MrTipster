@@ -11,13 +11,31 @@ import UIKit
 class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
     @IBOutlet weak var percentTextField: UITextField!
+    @IBOutlet weak var currencyTextField: UITextField!
 
-    var percentPicker = UIPickerView()
-    let tipPercentages = [0.18, 0.2, 0.22]
+    // used to select which data to use in pickerView
+    var activeField = UITextField()
+    var currentPickerName = String()
+    var pickerView = UIPickerView()
+    
+    // determines which index to select in ViewController
     var controlIndex = 0
     
+    let tipPercentages = [0.18, 0.2, 0.22]
+    let foreignCurrencies = ["$","€","£", "¥", "₹"]
+    
     override func viewDidLoad() {
-        self.setupTableView()
+        
+        // setup delegates and datasources
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
+        self.pickerView.delegate = self
+        self.pickerView.dataSource = self
+        
+        self.percentTextField.delegate = self
+        self.currencyTextField.delegate = self
+        
         self.setupPicker()
         self.loadSettings()
     }
@@ -27,20 +45,10 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     }
     
     // MARK: Settings Logic
-    func setupTableView() {
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-    }
-    
-    func setupPicker() {
-        percentPicker.delegate = self
-        percentPicker.dataSource = self
-        percentTextField.inputView = percentPicker
-    }
-    
     func loadSettings() {
         let defaults = UserDefaults.standard
         let percent = defaults.double(forKey: "percent")
+        let currency = defaults.string(forKey: "currency")
         
         if percent > 0 {
             percentTextField.text = String(format: "%.2f", percent)
@@ -48,10 +56,47 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
         else {
             percentTextField.text = tipPercentages[0].description
         }
+        
+        if currency == nil {
+            currencyTextField.text = foreignCurrencies[0]
+        }
+        else {
+            currencyTextField.text = currency
+        }
+        
     }
     
     func saveSettings() {
-        Helper.saveSettings(Double(percentTextField.text!)!, self.controlIndex)
+        Helper.saveSettings(Double(percentTextField.text!), self.controlIndex, self.currencyTextField.text)
+    }
+    
+    func setupPicker() {
+
+        percentTextField.inputView = pickerView
+        currencyTextField.inputView = pickerView
+    }
+    
+    func updatePicker(_ textField: UITextField) {
+        if textField == percentTextField {
+            currentPickerName = "Percent"
+        }
+        else if textField == currencyTextField {
+            currentPickerName = "Currency"
+        }
+        else {
+            currentPickerName = ""
+        }
+        
+        pickerView.reloadAllComponents()
+    }
+
+    // MARK: Text Field Delegate
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        activeField = textField
+        
+        if textField == percentTextField || textField == currencyTextField {
+            updatePicker(textField)
+        }
     }
     
     // MARK: Picker Delegate
@@ -60,16 +105,38 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent: Int) -> Int {
-        return tipPercentages.count
+        
+        if currentPickerName == "Percent" {
+            return tipPercentages.count
+        }
+        else if currentPickerName == "Currency" {
+            return foreignCurrencies.count
+        }
+
+        return 0
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent: Int) -> String? {
-        return String(format: "%d", Int(tipPercentages[row] * 100))
+        
+        if currentPickerName == "Percent" {
+            return String(format: "%d", Int(tipPercentages[row] * 100))
+        }
+        else if currentPickerName == "Currency" {
+            return foreignCurrencies[row]
+        }
+        
+        return ""
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent: Int) {
-        percentTextField.text = tipPercentages[row].description
-        self.controlIndex = row
+        
+        if currentPickerName == "Percent" {
+            percentTextField.text = tipPercentages[row].description
+            self.controlIndex = row
+        }
+        else if currentPickerName == "Currency" {
+            currencyTextField.text = foreignCurrencies[row]
+        }
     }
     
     // MARK: IBActions

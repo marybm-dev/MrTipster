@@ -28,7 +28,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // prevent the colored uiview from creeping under nav bar
         self.edgesForExtendedLayout = UIRectEdge()
         
@@ -64,7 +64,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let index    = defaults.integer(forKey: "controlIndex")
         let percent  = defaults.double(forKey: "percent")
         let minutes  = defaults.integer(forKey: "minutes")
-        currencySymbol = defaults.string(forKey: "currency")
+        currencySymbol  = defaults.string(forKey: "currency")
+        let isDarkTheme = defaults.bool(forKey: "theme")
+        
         var amount: Double = 0
         
         // if less than 10 minutes, reload the amount
@@ -81,6 +83,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         // update the flag
         self.setFlag(Helper.regionDictionary[currencySymbol!]!)
+        
+        // set the theme
+        self.setTheme(isDarkTheme)
     }
     
     func updateLabels(_ percent: Double, amount: Double) {
@@ -132,6 +137,23 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         barButtonItem = UIBarButtonItem(customView: flagButton)
         self.navigationItem.leftBarButtonItem = barButtonItem
+    }
+    
+    func setTheme(_ darkTheme: Bool) {
+        if darkTheme {
+            amountView.backgroundColor = UIColor.customBlue()
+            amountView.tintColor = UIColor.white
+            billTextField.textColor = UIColor.white
+            currencyLabel.textColor = UIColor.white
+            tipControl.tintColor = UIColor.white
+        }
+        else {
+            amountView.backgroundColor = UIColor.white
+            amountView.tintColor = UIColor.blue
+            billTextField.textColor = UIColor.darkGray
+            currencyLabel.textColor = UIColor.darkGray
+            tipControl.tintColor = UIColor.customBlue()
+        }
     }
     
     // MARK: IBActions

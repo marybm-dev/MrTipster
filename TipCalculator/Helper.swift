@@ -50,7 +50,7 @@ class Helper {
         defaults.synchronize()
     }
     
-    static func saveSettings(_ percent: Double?, _ controlIndex: Int?, _ currency : String?) {
+    static func saveSettings(percent: Double?, index controlIndex: Int?, currency : String?, isDarkTheme darkTheme: Bool) {
         let defaults = UserDefaults.standard
         
         if let defaultPercent = percent {
@@ -64,6 +64,8 @@ class Helper {
         if let defaultCurrency = currency {
             defaults.set(defaultCurrency, forKey: "currency")
         }
+        
+        defaults.set(darkTheme, forKey: "theme")
         
         defaults.synchronize()
     }

@@ -12,6 +12,7 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
 
     @IBOutlet weak var percentTextField: UITextField!
     @IBOutlet weak var currencyTextField: UITextField!
+    @IBOutlet weak var darkThemeSwitch: UISwitch!
 
     // used to select which data to use in pickerView
     var activeField = UITextField()
@@ -46,9 +47,11 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     
     // MARK: Settings Logic
     func loadSettings() {
+        
         let defaults = UserDefaults.standard
         let percent = defaults.double(forKey: "percent")
         let currency = defaults.string(forKey: "currency")
+        let isDarkTheme = defaults.bool(forKey: "theme")
         
         if percent > 0 {
             percentTextField.text = String(format: "%.2f", percent)
@@ -64,10 +67,16 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
             currencyTextField.text = currency
         }
         
+        darkThemeSwitch.setOn(isDarkTheme, animated: true)
     }
     
     func saveSettings() {
-        Helper.saveSettings(Double(percentTextField.text!), self.controlIndex, self.currencyTextField.text)
+        Helper.saveSettings(
+                percent: Double(percentTextField.text!),
+                  index: self.controlIndex,
+               currency: self.currencyTextField.text,
+            isDarkTheme: self.darkThemeSwitch.isOn
+        )
     }
     
     func setupPicker() {
@@ -77,6 +86,7 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     }
     
     func updatePicker(_ textField: UITextField) {
+        
         if textField == percentTextField {
             currentPickerName = "Percent"
         }

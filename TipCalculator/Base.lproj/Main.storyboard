@@ -357,7 +357,7 @@
                                             <frame key="frameInset" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Light Theme" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Tg-oA-f02">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dark Theme" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Tg-oA-f02">
                                                     <frame key="frameInset" minX="12" minY="6" width="200" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -383,6 +383,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="currencyTextField" destination="x4c-4W-vHH" id="Okv-69-VmD"/>
+                        <outlet property="darkThemeSwitch" destination="1zw-ZN-zRD" id="0P1-EG-cd3"/>
                         <outlet property="percentTextField" destination="zuQ-w1-mve" id="kFg-hI-J0j"/>
                     </connections>
                 </tableViewController>
@@ -400,7 +401,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="V5u-eX-tcU" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="4M4-sh-aUk">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="4M4-sh-aUk">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>

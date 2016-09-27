@@ -27,6 +27,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // prevent the colored uiview from creeping under nav bar
         self.edgesForExtendedLayout = UIRectEdge()
         
+        // setup textfield delegate
+        billTextField.delegate = self
+        
+        // display fade animation
         self.shouldAnimate()
     }
 
@@ -37,18 +41,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // make the number pad open by default
-        if billTextField == nil || billTextField.text == "" {
-            billTextField.delegate = self
-            billTextField.becomeFirstResponder()
-        }
-        
         // get stored defaults and display on UI
         self.setupView()
     }
     
     // MARK: App Logic
     func setupView() {
+        
+        // make the number pad open by default
+        billTextField.becomeFirstResponder()
         
         // retrieve defaults
         let defaults = UserDefaults.standard

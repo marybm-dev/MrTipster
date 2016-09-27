@@ -33,4 +33,11 @@ class Helper {
         defaults.set(minutes, forKey: "minutes")
         defaults.synchronize()
     }
+    
+    static func saveSettings(_ defaultPercent: Double, _ selectedIndex: Int) {
+        let defaults = UserDefaults.standard
+        defaults.set(defaultPercent, forKey: "percent")
+        defaults.set(selectedIndex, forKey: "controlIndex")
+        defaults.synchronize()
+    }
 }

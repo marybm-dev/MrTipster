@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
     @IBOutlet weak var percentTextField: UITextField!
 
@@ -17,11 +17,21 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     var controlIndex = 0
     
     override func viewDidLoad() {
+        self.setupTableView()
         self.setupPicker()
         self.loadSettings()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        self.saveSettings()
+    }
+    
     // MARK: Settings Logic
+    func setupTableView() {
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+    }
+    
     func setupPicker() {
         percentPicker.delegate = self
         percentPicker.dataSource = self
@@ -41,10 +51,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     }
     
     func saveSettings() {
-        let defaults = UserDefaults.standard
-        defaults.set(Double(percentTextField.text!)!, forKey: "percent")
-        defaults.set(self.controlIndex, forKey: "controlIndex")
-        defaults.synchronize()
+        Helper.saveSettings(Double(percentTextField.text!)!, self.controlIndex)
     }
     
     // MARK: Picker Delegate
@@ -70,12 +77,4 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, UIPickerVie
         view.endEditing(true)
     }
     
-    @IBAction func onCancelButtonPressed(_ sender: AnyObject) {
-        self.dismiss(animated: true, completion: {})
-    }
-    
-    @IBAction func onSaveButtonPressed(_ sender: AnyObject) {
-        self.saveSettings()
-        self.dismiss(animated: true, completion: {})
-    }
 }

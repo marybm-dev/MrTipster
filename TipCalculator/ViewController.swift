@@ -46,6 +46,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        // updates the flag to match currency region
         self.setFlag(Helper.Region.USA)
         
         // get stored defaults and display on UI

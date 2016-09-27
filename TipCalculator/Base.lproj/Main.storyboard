@@ -281,7 +281,7 @@
                 </tapGestureRecognizer>
                 <barButtonItem title="Settings" style="plain" id="Fsc-V5-ahL"/>
             </objects>
-            <point key="canvasLocation" x="1265" y="452"/>
+            <point key="canvasLocation" x="1314" y="450"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="67m-1B-SY4">
@@ -380,6 +380,7 @@
                             <outletCollection property="gestureRecognizers" destination="vXm-du-aZv" appends="YES" id="g3n-tu-We0"/>
                         </connections>
                     </tableView>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="currencyTextField" destination="x4c-4W-vHH" id="Okv-69-VmD"/>
                         <outlet property="percentTextField" destination="zuQ-w1-mve" id="kFg-hI-J0j"/>
@@ -394,49 +395,15 @@
             </objects>
             <point key="canvasLocation" x="2015" y="451"/>
         </scene>
-        <!--Picker View Controller-->
-        <scene sceneID="XgW-28-ObT">
-            <objects>
-                <viewController id="vHr-nA-maX" customClass="PickerViewController" customModule="Tipster" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Dvg-y5-KI1"/>
-                        <viewControllerLayoutGuide type="bottom" id="msi-LK-6m0"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="UhW-Rc-GxN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m3O-8w-uVD">
-                                <frame key="frameInset" height="44" maxY="603"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <items>
-                                    <barButtonItem title="Cancel" id="Oal-cL-HLf"/>
-                                    <barButtonItem title="Done" id="reJ-CQ-849"/>
-                                </items>
-                            </toolbar>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xf3-v7-Gmx">
-                                <frame key="frameInset" minY="64" height="216"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            </pickerView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="pickerView" destination="xf3-v7-Gmx" id="pcz-Rq-ku9"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HnE-77-QZJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1957.5999999999999" y="1181.5592203898052"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="UCd-xF-FMF">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="V5u-eX-tcU" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="4M4-sh-aUk">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="4M4-sh-aUk">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

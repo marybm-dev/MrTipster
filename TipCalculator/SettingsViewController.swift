@@ -23,7 +23,7 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     var controlIndex = 0
     
     let tipPercentages = [0.18, 0.2, 0.22]
-    let foreignCurrencies = ["$","€","£", "¥", "₹"]
+    let foreignCurrencies = Array(Helper.regionDictionary.keys)
     
     override func viewDidLoad() {
         

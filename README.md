@@ -1,7 +1,7 @@
 # Tipster-CodePath
 This is a Tip Calculator application for iOS submitted as the pre-assignment requirement for CodePath.
 
-Time Spent: 12 hours
+Time Spent: 17 hours
 
 Completed:
 
@@ -13,7 +13,7 @@ Completed:
 * Optional: Locale and Currency 
 * Optional: Light/Dark theme
 
-![Video Walkthrough](TipsterUpdated.gif)
+![Video Walkthrough](TipsterRevision2.gif)
 
 # Installation
 Download the zip file and open the XCode Project to run the app with the Simulator

@@ -160,8 +160,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBAction func onEditingChanged(_ sender: AnyObject) {
         
         // determine selected percent
-        let tipPercentages = [0.18, 0.2, 0.22]
-        let tipPercentage = tipPercentages[tipControl.selectedSegmentIndex]
+        let tipPercentage = Variables.tipPercentages[tipControl.selectedSegmentIndex]
 
         // update the amount labels
         if let currentAmount = Double(billTextField.text!) {

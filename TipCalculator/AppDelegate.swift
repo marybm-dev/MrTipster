@@ -14,6 +14,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        // gets the time difference to count the minutes away
+        Helper.getBackgroundTime()
+        
+        // validates user's time away and resets minutes if needed
+        Helper.validateTimeAway()
+        
         return true
     }
 
@@ -21,33 +28,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        let dateFormat = Helper.getDateFormat()
-        let backgroundTime: String = dateFormat.string(from: Date())
         
-        // store the current timestamp
-        Variables.defaults.setValue(backgroundTime, forKey: "backgroundTime")
-        Variables.defaults.synchronize()
+        // saves current timestamp as backgroundTime in defaults
+        Helper.setBackgroundTime()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        let dateFormat = Helper.getDateFormat()
-        let foregroundTime: String = dateFormat.string(from: Date())
-        let backgroundTime: String = UserDefaults.standard.object(forKey: "backgroundTime") as! String
-        
-        // get the time difference to count the minutes away
-        Helper.getBackgroundTime(backgroundTime, foreground: foregroundTime)
+
+        // gets the time difference to count the minutes away
+        Helper.getBackgroundTime()
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        let minutes = Variables.defaults.integer(forKey: "minutes")
         
-        // remove the amount if the time is past 10 minutes
-        if minutes > 10 {
-            Variables.defaults.set(0.0, forKey: "amount")
-            Variables.defaults.synchronize()
-        }
+        // validates user's time away and resets minutes if needed
+        Helper.validateTimeAway()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
+        
+        // saves current timestamp as backgroundTime in defaults
+        Helper.setBackgroundTime()
     }
 }

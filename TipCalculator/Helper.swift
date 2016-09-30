@@ -17,11 +17,13 @@ class Helper {
         return dateFormat
     }
     
-    static func getBackgroundTime(_ background: String, foreground: String) {
+    static func getBackgroundTime() {
         let dateFormat = self.getDateFormat()
+        let foregroundTime: String = dateFormat.string(from: Date())
+        let backgroundTime: String = UserDefaults.standard.object(forKey: "backgroundTime") as! String
         
-        let lastDate: Date = dateFormat.date(from: foreground)!
-        let todaysDate: Date = dateFormat.date(from: background)!
+        let lastDate: Date = dateFormat.date(from: foregroundTime)!
+        let todaysDate: Date = dateFormat.date(from: backgroundTime)!
         
         let lastDiff: TimeInterval = lastDate.timeIntervalSinceNow
         let todaysDiff: TimeInterval = todaysDate.timeIntervalSinceNow
@@ -33,4 +35,22 @@ class Helper {
         Variables.defaults.synchronize()
     }
 
+    static func setBackgroundTime() {
+        let dateFormat = Helper.getDateFormat()
+        let backgroundTime: String = dateFormat.string(from: Date())
+        
+        // store the current timestamp
+        Variables.defaults.setValue(backgroundTime, forKey: "backgroundTime")
+        Variables.defaults.synchronize()
+    }
+    
+    static func validateTimeAway() {
+        let minutes = Variables.defaults.integer(forKey: "minutes")
+        
+        // remove the amount if the time is past 10 minutes
+        if minutes > 10 {
+            Variables.defaults.set(0.0, forKey: "amount")
+            Variables.defaults.synchronize()
+        }
+    }
 }

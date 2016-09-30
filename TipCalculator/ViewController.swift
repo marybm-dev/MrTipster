@@ -60,20 +60,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // retrieve defaults
         let index    = Variables.defaults.integer(forKey: "controlIndex")
         let percent  = Variables.defaults.double(forKey: "percent")
-        let minutes  = Variables.defaults.integer(forKey: "minutes")
         let isDarkTheme = Variables.defaults.bool(forKey: "theme")
+        
         // first run of app there are no defaults so explicitly set currencySymbol
         currencySymbol = Variables.defaults.string(forKey: "currency") ?? Variables.foreignCurrencies[0]
         
-        // if app restarted within 10 minutes, reload the tip bill amount
-        var amount: Double = 0
-        if minutes < 10 {
-            amount = Variables.defaults.double(forKey: "amount")
-            self.load(bill: amount)
-        }
-        else {
-            amount = 0
-        }
+        // reload the previuos tip bill amount
+        let amount = self.loadBillAmount()
         
         // update selected segment
         tipControl.selectedSegmentIndex = index
@@ -147,8 +140,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
         Variables.defaults.synchronize()
     }
     
-    func load(bill amount: Double) {
+    func loadBillAmount() -> Double {
+        // determines if app restarted within 10 mins and reuses amount if so
+        let minutes  = Variables.defaults.integer(forKey: "minutes")
+        let amount = (minutes > 10) ? 0 : Variables.defaults.double(forKey: "amount")
         billTextField.text = (amount < 1) ? "" : String(format: "%.2f", amount)
+        
+        return amount
     }
     
     func shouldAnimate() {

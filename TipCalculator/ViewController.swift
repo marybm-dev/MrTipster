@@ -130,7 +130,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func load(bill amount: Double) {
-        billTextField.text = String(format: "%.2f", amount)
+        billTextField.text = (amount < 1) ? "" : String(format: "%.2f", amount)
     }
     
     func shouldAnimate() {

@@ -10,24 +10,6 @@ import Foundation
 
 class Helper {
     
-    enum Region: String {
-        case USA = "USA"
-        case EU = "EU"
-        case UK = "UK"
-        case Japan = "Japan"
-        case India =  "India"
-    }
-    
-    static let regionDictionary: [String : Region] = [
-        "$" : .USA,
-        "€" : .EU,
-        "£" : .UK,
-        "¥" : .Japan,
-        "₹" : .India
-    ]
-    
-    static let foreignCurrencies = Array(Helper.regionDictionary.keys)
-    
     static func getDateFormat() -> DateFormatter {
         let dateFormat: DateFormatter = DateFormatter()
         dateFormat.dateFormat = "MM/dd/yyyy HH:mm:ss"
@@ -47,9 +29,8 @@ class Helper {
         
         let minutes = Int(dateDiff / Double(60))
         
-        let defaults = UserDefaults.standard
-        defaults.set(minutes, forKey: "minutes")
-        defaults.synchronize()
+        Variables.defaults.set(minutes, forKey: "minutes")
+        Variables.defaults.synchronize()
     }
 
 }

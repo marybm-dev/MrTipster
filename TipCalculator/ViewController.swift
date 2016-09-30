@@ -20,8 +20,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var splitFourLabel: UILabel!
     @IBOutlet weak var splitFiveLabel: UILabel!
 
-    let defaults = UserDefaults.standard
-    
     var flagButton: UIButton!
     var barButtonItem: UIBarButtonItem!
     var currencySymbol: String!
@@ -47,7 +45,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         super.viewWillAppear(animated)
         
         // updates the flag to match currency region
-        self.setFlag(Helper.Region.USA)
+        self.setFlag(Variables.Region.USA)
         
         // get stored defaults and display on UI
         self.setupView()
@@ -60,17 +58,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
         billTextField.becomeFirstResponder()
         
         // retrieve defaults
-        let index    = defaults.integer(forKey: "controlIndex")
-        let percent  = defaults.double(forKey: "percent")
-        let minutes  = defaults.integer(forKey: "minutes")
-        let isDarkTheme = defaults.bool(forKey: "theme")
+        let index    = Variables.defaults.integer(forKey: "controlIndex")
+        let percent  = Variables.defaults.double(forKey: "percent")
+        let minutes  = Variables.defaults.integer(forKey: "minutes")
+        let isDarkTheme = Variables.defaults.bool(forKey: "theme")
         // first run of app there are no defaults so explicitly set currencySymbol
-        currencySymbol = defaults.string(forKey: "currency") ?? Helper.foreignCurrencies[0]
+        currencySymbol = Variables.defaults.string(forKey: "currency") ?? Variables.foreignCurrencies[0]
         
         // if app restarted within 10 minutes, reload the amount
         var amount: Double = 0
         if minutes < 10 {
-            amount = defaults.double(forKey: "amount")
+            amount = Variables.defaults.double(forKey: "amount")
             self.loadAmount(amount)
         }
         
@@ -81,7 +79,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.updateLabels(percent, amount: amount)
         
         // update the flag
-        self.setFlag(Helper.regionDictionary[currencySymbol!]!)
+        self.setFlag(Variables.regionDictionary[currencySymbol!]!)
         
         // set the theme
         self.setTheme(isDarkTheme)
@@ -102,8 +100,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func saveAmount(_ amount: Double) {
-        defaults.set(amount, forKey: "amount")
-        defaults.synchronize()
+        Variables.defaults.set(amount, forKey: "amount")
+        Variables.defaults.synchronize()
     }
     
     func loadAmount(_ amount: Double) {
@@ -128,7 +126,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         })
     }
     
-    func setFlag(_ region: Helper.Region) {
+    func setFlag(_ region: Variables.Region) {
         flagButton = UIButton(type: UIButtonType.custom)
         flagButton.setImage(UIImage(named: region.rawValue), for: .normal)
         flagButton.setTitle(region.rawValue, for: .normal)

@@ -12,7 +12,6 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let defaults = UserDefaults.standard
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         return true
@@ -26,8 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let backgroundTime: String = dateFormat.string(from: Date())
         
         // store the current timestamp
-        defaults.setValue(backgroundTime, forKey: "backgroundTime")
-        defaults.synchronize()
+        Variables.defaults.setValue(backgroundTime, forKey: "backgroundTime")
+        Variables.defaults.synchronize()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -40,12 +39,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        let minutes = defaults.integer(forKey: "minutes")
+        let minutes = Variables.defaults.integer(forKey: "minutes")
         
         // remove the amount if the time is past 10 minutes
         if minutes > 10 {
-            defaults.set(0.0, forKey: "amount")
-            defaults.synchronize()
+            Variables.defaults.set(0.0, forKey: "amount")
+            Variables.defaults.synchronize()
         }
     }
 

@@ -21,11 +21,7 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     
     // determines index to select in ViewController UISegmentedControl
     var controlIndex = 0
-    
-    let tipPercentages = [0.18, 0.2, 0.22]
-    
-    let defaults = UserDefaults.standard
-    
+
     override func viewDidLoad() {
         
         // setup delegates and datasources
@@ -49,19 +45,19 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     // MARK: Settings Logic
     func loadSettings() {
         
-        let percent = defaults.double(forKey: "percent")
-        let currency = defaults.string(forKey: "currency")
-        let isDarkTheme = defaults.bool(forKey: "theme")
+        let percent = Variables.defaults.double(forKey: "percent")
+        let currency = Variables.defaults.string(forKey: "currency")
+        let isDarkTheme = Variables.defaults.bool(forKey: "theme")
         
         if percent > 0 {
             percentTextField.text = String(format: "%.2f", percent)
         }
         else {
-            percentTextField.text = tipPercentages[0].description
+            percentTextField.text = Variables.tipPercentages[0].description
         }
         
         if currency == nil {
-            currencyTextField.text = Helper.foreignCurrencies[0]
+            currencyTextField.text = Variables.foreignCurrencies[0]
         }
         else {
             currencyTextField.text = currency
@@ -76,12 +72,12 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
         let currency = self.currencyTextField.text
         let isDarkTheme = self.darkThemeSwitch.isOn
         
-        defaults.set(percent, forKey: "percent")
-        defaults.set(controlIndex, forKey: "controlIndex")
-        defaults.set(currency, forKey: "currency")
-        defaults.set(isDarkTheme, forKey: "theme")
+        Variables.defaults.set(percent, forKey: "percent")
+        Variables.defaults.set(controlIndex, forKey: "controlIndex")
+        Variables.defaults.set(currency, forKey: "currency")
+        Variables.defaults.set(isDarkTheme, forKey: "theme")
         
-        defaults.synchronize()
+        Variables.defaults.synchronize()
     }
     
     func setupPicker() {
@@ -122,10 +118,10 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent: Int) -> Int {
         
         if currentPickerName == "Percent" {
-            return tipPercentages.count
+            return Variables.tipPercentages.count
         }
         else if currentPickerName == "Currency" {
-            return Helper.foreignCurrencies.count
+            return Variables.foreignCurrencies.count
         }
 
         return 0
@@ -134,10 +130,10 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent: Int) -> String? {
         
         if currentPickerName == "Percent" {
-            return String(format: "%d", Int(tipPercentages[row] * 100))
+            return String(format: "%d", Int(Variables.tipPercentages[row] * 100))
         }
         else if currentPickerName == "Currency" {
-            return Helper.foreignCurrencies[row]
+            return Variables.foreignCurrencies[row]
         }
         
         return ""
@@ -146,11 +142,11 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent: Int) {
         
         if currentPickerName == "Percent" {
-            percentTextField.text = tipPercentages[row].description
+            percentTextField.text = Variables.tipPercentages[row].description
             self.controlIndex = row
         }
         else if currentPickerName == "Currency" {
-            currencyTextField.text = Helper.foreignCurrencies[row]
+            currencyTextField.text = Variables.foreignCurrencies[row]
         }
     }
     

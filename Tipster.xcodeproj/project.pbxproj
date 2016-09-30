@@ -15,6 +15,7 @@
 		5E2BFF871CA074CB008CFCF4 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2BFF861CA074CB008CFCF4 /* SettingsViewController.swift */; };
 		5E2BFF891CA0B3AC008CFCF4 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2BFF881CA0B3AC008CFCF4 /* Helper.swift */; };
 		5E9F42481D9A31020087AF89 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9F42471D9A31020087AF89 /* Extensions.swift */; };
+		5ECDD5041D9DE83000CF7E84 /* Variables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECDD5031D9DE83000CF7E84 /* Variables.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		5E2BFF861CA074CB008CFCF4 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		5E2BFF881CA0B3AC008CFCF4 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		5E9F42471D9A31020087AF89 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		5ECDD5031D9DE83000CF7E84 /* Variables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Variables.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 			children = (
 				5E2BFF741CA0586F008CFCF4 /* AppDelegate.swift */,
 				5E2BFF881CA0B3AC008CFCF4 /* Helper.swift */,
+				5ECDD5031D9DE83000CF7E84 /* Variables.swift */,
 				5E9F42471D9A31020087AF89 /* Extensions.swift */,
 				5E2BFF761CA0586F008CFCF4 /* ViewController.swift */,
 				5E2BFF861CA074CB008CFCF4 /* SettingsViewController.swift */,
@@ -148,6 +151,7 @@
 				5E9F42481D9A31020087AF89 /* Extensions.swift in Sources */,
 				5E2BFF771CA0586F008CFCF4 /* ViewController.swift in Sources */,
 				5E2BFF751CA0586F008CFCF4 /* AppDelegate.swift in Sources */,
+				5ECDD5041D9DE83000CF7E84 /* Variables.swift in Sources */,
 				5E2BFF871CA074CB008CFCF4 /* SettingsViewController.swift in Sources */,
 				5E2BFF891CA0B3AC008CFCF4 /* Helper.swift in Sources */,
 			);

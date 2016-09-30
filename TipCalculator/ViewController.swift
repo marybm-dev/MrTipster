@@ -112,9 +112,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         numberFormatter.maximumFractionDigits = 2
         
         // determine which to use
-        let region = Variables.regionDictionary[currencySymbol]
-        let defaultIdentifier = Locale.current.identifier
-        let localeIdentifier = (region == .EU) ? "es_ES" : defaultIdentifier
+        let localeIdentifier = getLocaleIdentifier()
         numberFormatter.locale = Locale(identifier: localeIdentifier)
         
         // calculate per user quantity
@@ -122,6 +120,26 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let formattedTotal = num.doubleValue / Double(quantity)
         
         return  numberFormatter.string(from: NSNumber(value: formattedTotal))
+    }
+    
+    func getLocaleIdentifier() -> String {
+        let defaultIdentifier = Locale.current.identifier
+        if let region = Variables.regionDictionary[currencySymbol] {
+            switch region {
+            case .USA:
+                return "en_US"
+            case .UK:
+                return "en_GB"
+            case .EU:
+                return "eu_ES"
+            case .Japan:
+                return "ja_JP"
+            case .India:
+                return "en_IN"
+            }
+        }
+        
+        return defaultIdentifier
     }
     
     func save(bill amount: Double) {

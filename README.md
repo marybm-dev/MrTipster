@@ -1,7 +1,7 @@
 # Tipster-CodePath
 This is a Tip Calculator application for iOS submitted as the pre-assignment requirement for CodePath.
 
-Time Spent: 12 hours
+Time Spent: 17 hours
 
 Completed:
 

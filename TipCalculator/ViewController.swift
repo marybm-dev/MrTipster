@@ -79,7 +79,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         tipControl.selectedSegmentIndex = index
         
         // update the amount labels
-        self.updateLabels(for: percent, bill: amount)
+        self.updateLabels(for: amount, with: percent)
         
         // update the flag
         self.setFlag(Variables.regionDictionary[currencySymbol!]!)
@@ -88,7 +88,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.setTheme(isDarkTheme)
     }
     
-    func updateLabels(for percent: Double, bill amount: Double) {
+    func updateLabels(for amount: Double, with percent: Double) {
         
         // recalculate the amounts
         let tip = amount * percent
@@ -165,7 +165,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // update the amount labels
         if let currentAmount = Double(billTextField.text!) {
             
-            self.updateLabels(for: tipPercentage, bill: currentAmount)
+            self.updateLabels(for: currentAmount, with: tipPercentage)
             
             // store the amount to display within 10 mins
             self.save(bill: currentAmount)

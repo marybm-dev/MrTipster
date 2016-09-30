@@ -71,6 +71,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
             amount = Variables.defaults.double(forKey: "amount")
             self.load(bill: amount)
         }
+        else {
+            amount = 0
+        }
         
         // update selected segment
         tipControl.selectedSegmentIndex = index

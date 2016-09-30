@@ -94,12 +94,34 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let tip = amount * percent
         let total = amount + tip
         
-        splitOneLabel.text   = String(format: "\(currencySymbol!)%.2f", total)
-        splitTwoLabel.text   = String(format: "\(currencySymbol!)%.2f", total / 2)
-        splitThreeLabel.text = String(format: "\(currencySymbol!)%.2f", total / 3)
-        splitFourLabel.text  = String(format: "\(currencySymbol!)%.2f", total / 4)
-        splitFiveLabel.text  = String(format: "\(currencySymbol!)%.2f", total / 5)
+        splitOneLabel.text   = setLocale(for: total, divideBy: 1)
+        splitTwoLabel.text   = setLocale(for: total, divideBy: 2)
+        splitThreeLabel.text = setLocale(for: total, divideBy: 3)
+        splitFourLabel.text  = setLocale(for: total, divideBy: 4)
+        splitFiveLabel.text  = setLocale(for: total, divideBy: 5)
         currencyLabel.text   = currencySymbol
+    }
+    
+    func setLocale(for amount: Double, divideBy quantity: Int) -> String? {
+        
+        // set the locale for thousands separator
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = NumberFormatter.Style.decimal
+        
+        numberFormatter.numberStyle = .currency
+        numberFormatter.maximumFractionDigits = 2
+        
+        // determine which to use
+        let region = Variables.regionDictionary[currencySymbol]
+        let defaultIdentifier = Locale.current.identifier
+        let localeIdentifier = (region == .EU) ? "es_ES" : defaultIdentifier
+        numberFormatter.locale = Locale(identifier: localeIdentifier)
+        
+        // calculate per user quantity
+        let num = NSNumber(floatLiteral: amount)
+        let formattedTotal = num.doubleValue / Double(quantity)
+        
+        return  numberFormatter.string(from: NSNumber(value: formattedTotal))
     }
     
     func save(bill amount: Double) {

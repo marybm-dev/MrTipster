@@ -13,7 +13,7 @@ Completed:
 * Optional: Locale and Currency 
 * Optional: Light/Dark theme
 
-![Video Walkthrough](TipsterUpdated.gif)
+![Video Walkthrough](TipsterRevised2.gif)
 
 # Installation
 Download the zip file and open the XCode Project to run the app with the Simulator

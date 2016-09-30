@@ -14,10 +14,16 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     @IBOutlet weak var currencyTextField: UITextField!
     @IBOutlet weak var darkThemeSwitch: UISwitch!
 
+    enum Picker: String {
+        case Percent = "Percent"
+        case Currency = "Currency"
+        case Null = ""
+    }
+    
     // used to select data to use in pickerView
     var activeField = UITextField()
-    var currentPickerName = String()
     var pickerView = UIPickerView()
+    var currentPickerName: Picker!
     
     // determines index to select in ViewController UISegmentedControl
     var controlIndex = 0
@@ -89,13 +95,13 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     func updatePicker(_ textField: UITextField) {
         
         if textField == percentTextField {
-            currentPickerName = "Percent"
+            currentPickerName = .Percent
         }
         else if textField == currencyTextField {
-            currentPickerName = "Currency"
+            currentPickerName = .Currency
         }
         else {
-            currentPickerName = ""
+            currentPickerName = .Null
         }
         
         pickerView.reloadAllComponents()
@@ -117,10 +123,10 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent: Int) -> Int {
         
-        if currentPickerName == "Percent" {
+        if currentPickerName == .Percent {
             return Variables.tipPercentages.count
         }
-        else if currentPickerName == "Currency" {
+        else if currentPickerName == .Currency {
             return Variables.foreignCurrencies.count
         }
 
@@ -129,10 +135,10 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent: Int) -> String? {
         
-        if currentPickerName == "Percent" {
+        if currentPickerName == .Percent {
             return String(format: "%d", Int(Variables.tipPercentages[row] * 100))
         }
-        else if currentPickerName == "Currency" {
+        else if currentPickerName == .Currency {
             return Variables.foreignCurrencies[row]
         }
         
@@ -141,11 +147,11 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent: Int) {
         
-        if currentPickerName == "Percent" {
+        if currentPickerName == .Percent {
             percentTextField.text = Variables.tipPercentages[row].description
             self.controlIndex = row
         }
-        else if currentPickerName == "Currency" {
+        else if currentPickerName == .Currency {
             currencyTextField.text = Variables.foreignCurrencies[row]
         }
     }

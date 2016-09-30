@@ -60,16 +60,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
         billTextField.becomeFirstResponder()
         
         // retrieve defaults
-        let defaults = UserDefaults.standard
         let index    = defaults.integer(forKey: "controlIndex")
         let percent  = defaults.double(forKey: "percent")
         let minutes  = defaults.integer(forKey: "minutes")
-        currencySymbol  = defaults.string(forKey: "currency")
         let isDarkTheme = defaults.bool(forKey: "theme")
+        // first run of app there are no defaults so explicitly set currencySymbol
+        currencySymbol = defaults.string(forKey: "currency") ?? Helper.foreignCurrencies[0]
         
+        // if app restarted within 10 minutes, reload the amount
         var amount: Double = 0
-        
-        // if less than 10 minutes, reload the amount
         if minutes < 10 {
             amount = defaults.double(forKey: "amount")
             self.loadAmount(amount)

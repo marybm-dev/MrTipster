@@ -26,6 +26,8 @@ class Helper {
         "₹" : .India
     ]
     
+    static let foreignCurrencies = Array(Helper.regionDictionary.keys)
+    
     static func getDateFormat() -> DateFormatter {
         let dateFormat: DateFormatter = DateFormatter()
         dateFormat.dateFormat = "MM/dd/yyyy HH:mm:ss"
@@ -49,24 +51,5 @@ class Helper {
         defaults.set(minutes, forKey: "minutes")
         defaults.synchronize()
     }
-    
-    static func saveSettings(percent: Double?, index controlIndex: Int?, currency : String?, isDarkTheme darkTheme: Bool) {
-        let defaults = UserDefaults.standard
-        
-        if let defaultPercent = percent {
-            defaults.set(defaultPercent, forKey: "percent")
-        }
-        
-        if let selectedIndex = controlIndex {
-            defaults.set(selectedIndex, forKey: "controlIndex")
-        }
-        
-        if let defaultCurrency = currency {
-            defaults.set(defaultCurrency, forKey: "currency")
-        }
-        
-        defaults.set(darkTheme, forKey: "theme")
-        
-        defaults.synchronize()
-    }
+
 }

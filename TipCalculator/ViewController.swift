@@ -65,18 +65,18 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // first run of app there are no defaults so explicitly set currencySymbol
         currencySymbol = Variables.defaults.string(forKey: "currency") ?? Variables.foreignCurrencies[0]
         
-        // if app restarted within 10 minutes, reload the amount
+        // if app restarted within 10 minutes, reload the tip bill amount
         var amount: Double = 0
         if minutes < 10 {
             amount = Variables.defaults.double(forKey: "amount")
-            self.loadAmount(amount)
+            self.load(bill: amount)
         }
         
         // update selected segment
         tipControl.selectedSegmentIndex = index
         
         // update the amount labels
-        self.updateLabels(percent, amount: amount)
+        self.updateLabels(for: percent, bill: amount)
         
         // update the flag
         self.setFlag(Variables.regionDictionary[currencySymbol!]!)
@@ -85,7 +85,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.setTheme(isDarkTheme)
     }
     
-    func updateLabels(_ percent: Double, amount: Double) {
+    func updateLabels(for percent: Double, bill amount: Double) {
         
         // recalculate the amounts
         let tip = amount * percent
@@ -99,12 +99,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
         currencyLabel.text   = currencySymbol
     }
     
-    func saveAmount(_ amount: Double) {
+    func save(bill amount: Double) {
         Variables.defaults.set(amount, forKey: "amount")
         Variables.defaults.synchronize()
     }
     
-    func loadAmount(_ amount: Double) {
+    func load(bill amount: Double) {
         billTextField.text = String(format: "%.2f", amount)
     }
     
@@ -163,10 +163,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // update the amount labels
         if let currentAmount = Double(billTextField.text!) {
             
-            self.updateLabels(tipPercentage, amount: currentAmount)
+            self.updateLabels(for: tipPercentage, bill: currentAmount)
             
             // store the amount to display within 10 mins
-            self.saveAmount(currentAmount)
+            self.save(bill: currentAmount)
         }
     }
 

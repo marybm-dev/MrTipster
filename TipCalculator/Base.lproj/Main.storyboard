@@ -136,15 +136,15 @@
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfi-YC-bTa">
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="196" id="tTq-NU-PBr"/>
+                                    <constraint firstAttribute="width" constant="275" id="tTq-NU-PBr"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="40"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="35"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.40000000000000002" blue="0.59999999999999998" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="$0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h4F-zn-VVQ">
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="168" id="pIm-Uk-UGF"/>
+                                    <constraint firstAttribute="width" constant="247" id="pIm-Uk-UGF"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.40000000000000002" blue="0.59999999999999998" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
@@ -160,15 +160,15 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcn-fr-xcp">
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="241" id="FNV-xG-efd"/>
+                                    <constraint firstAttribute="width" constant="275" id="FNV-xG-efd"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="50"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="40"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.40000000000000002" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v6e-I8-SKH">
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="140" id="j9r-bz-Pea"/>
+                                    <constraint firstAttribute="width" constant="191" id="j9r-bz-Pea"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.40000000000000002" blue="0.59999999999999998" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
@@ -281,7 +281,7 @@
                 </tapGestureRecognizer>
                 <barButtonItem title="Settings" style="plain" id="Fsc-V5-ahL"/>
             </objects>
-            <point key="canvasLocation" x="1314" y="450"/>
+            <point key="canvasLocation" x="1312.8" y="449.32533733133437"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="67m-1B-SY4">

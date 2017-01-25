@@ -53,7 +53,7 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
         
         let percent = Variables.defaults.double(forKey: "percent")
         let currency = Variables.defaults.string(forKey: "currency")
-        let isDarkTheme = Variables.defaults.bool(forKey: "theme")
+        let isLightTheme = Variables.defaults.bool(forKey: "theme")
         
         if percent > 0 {
             percentTextField.text = String(format: "%.2f", percent)
@@ -69,7 +69,7 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
             currencyTextField.text = currency
         }
         
-        darkThemeSwitch.setOn(isDarkTheme, animated: true)
+        darkThemeSwitch.setOn(isLightTheme, animated: true)
     }
     
     func saveSettings() {

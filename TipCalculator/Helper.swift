@@ -20,7 +20,9 @@ class Helper {
     static func getBackgroundTime() {
         let dateFormat = self.getDateFormat()
         let foregroundTime: String = dateFormat.string(from: Date())
-        let backgroundTime: String = UserDefaults.standard.object(forKey: "backgroundTime") as! String
+        guard let backgroundTime: String = (UserDefaults.standard.object(forKey: "backgroundTime") as? String) else {
+            return
+        }
         
         let lastDate: Date = dateFormat.date(from: foregroundTime)!
         let todaysDate: Date = dateFormat.date(from: backgroundTime)!

@@ -60,7 +60,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // retrieve defaults
         let index    = Variables.defaults.integer(forKey: "controlIndex")
         let percent  = Variables.defaults.double(forKey: "percent")
-        let isDarkTheme = Variables.defaults.bool(forKey: "theme")
+        let isLightTheme = Variables.defaults.bool(forKey: "theme")
         
         // first run of app there are no defaults so explicitly set currencySymbol
         currencySymbol = Variables.defaults.string(forKey: "currency") ?? Variables.foreignCurrencies[0]
@@ -78,7 +78,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.setFlag(Variables.regionDictionary[currencySymbol!]!)
         
         // set the theme
-        self.setTheme(isDarkTheme)
+        self.setTheme(isLightTheme)
     }
     
     func updateLabels(for amount: Double, with percent: Double) {
@@ -177,20 +177,20 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.navigationItem.leftBarButtonItem = barButtonItem
     }
     
-    func setTheme(_ darkTheme: Bool) {
-        if darkTheme {
-            amountView.backgroundColor = UIColor.customBlue()
-            amountView.tintColor = UIColor.white
-            billTextField.textColor = UIColor.white
-            currencyLabel.textColor = UIColor.white
-            tipControl.tintColor = UIColor.white
-        }
-        else {
+    func setTheme(_ lightTheme: Bool) {
+        if lightTheme {
             amountView.backgroundColor = UIColor.white
             amountView.tintColor = UIColor.blue
             billTextField.textColor = UIColor.darkGray
             currencyLabel.textColor = UIColor.darkGray
             tipControl.tintColor = UIColor.customBlue()
+        }
+        else {
+            amountView.backgroundColor = UIColor.customBlue()
+            amountView.tintColor = UIColor.white
+            billTextField.textColor = UIColor.white
+            currencyLabel.textColor = UIColor.white
+            tipControl.tintColor = UIColor.white
         }
     }
     

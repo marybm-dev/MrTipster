@@ -19,6 +19,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var splitThreeLabel: UILabel!
     @IBOutlet weak var splitFourLabel: UILabel!
     @IBOutlet weak var splitFiveLabel: UILabel!
+    @IBOutlet weak var splitSixLabel: UILabel!
+    @IBOutlet weak var splitSevenLabel: UILabel!
 
     var flagButton: UIButton!
     var barButtonItem: UIBarButtonItem!
@@ -92,6 +94,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         splitThreeLabel.text = setLocale(for: total, divideBy: 3)
         splitFourLabel.text  = setLocale(for: total, divideBy: 4)
         splitFiveLabel.text  = setLocale(for: total, divideBy: 5)
+        splitSixLabel.text   = setLocale(for: total, divideBy: 6)
+        splitSevenLabel.text = setLocale(for: total, divideBy: 7)
         currencyLabel.text   = currencySymbol
     }
     
@@ -156,6 +160,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.splitThreeLabel.alpha = 0
         self.splitFourLabel.alpha = 0
         self.splitFiveLabel.alpha = 0
+        self.splitSixLabel.alpha = 0
+        self.splitSevenLabel.alpha = 0
         
         UIView.animate(withDuration: 0.75, animations: {
             self.tipControl.alpha = 1
@@ -164,6 +170,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
             self.splitThreeLabel.alpha = 1
             self.splitFourLabel.alpha = 1
             self.splitFiveLabel.alpha = 1
+            self.splitSixLabel.alpha = 1
+            self.splitSevenLabel.alpha = 1
         })
     }
     

@@ -89,7 +89,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func updateLabels(for amount: Float, with percent: Float) {
         
         // recalculate the amounts
-        let tip = amount * (tipPercentage/100.0)
+        let tip = amount * tipPercentage
         let total = amount + tip
         
         splitOneLabel.text   = setLocale(for: total, divideBy: 1)
@@ -103,9 +103,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         percentLabel.text    = setLocale(for: tipPercentage, type: .percent)
         percentAmountLabel.text = setLocale(for: tip, type: .currency)
-        
-//        percentLabel.text = "\(Int(tipPercentage))%"
-//        percentAmountLabel.text = "\(String(format: "%.2f", tip))"
     }
     
     func setLocale(for amount: Float, type: NumberFormatter.Style) -> String? {
@@ -118,8 +115,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         } else if type == .currency {
             numberFormatter.maximumFractionDigits = 2
         }
-        
-        print(type)
         
         // determine which to use
         let localeIdentifier = getLocaleIdentifier()
@@ -228,7 +223,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: IBActions
     @IBAction func onEditingChanged(_ sender: AnyObject) {
-        tipPercentage = Float(Int(tipSlider.value))
+        // round to nearest tenth
+        let precision: Float = 2.0
+        let multiplier: Float = pow(10.0, precision)
+        tipPercentage = round(tipSlider.value * multiplier) / multiplier
         
         // update the amount labels
         if let currentAmount = Float(billTextField.text!) {

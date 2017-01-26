@@ -11,7 +11,6 @@ import UIKit
 class ViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var billTextField: UITextField!
-    @IBOutlet weak var tipControl: UISegmentedControl!
     @IBOutlet weak var amountView: UIView!
     @IBOutlet weak var currencyLabel: UILabel!
     @IBOutlet weak var splitOneLabel: UILabel!
@@ -19,10 +18,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var splitThreeLabel: UILabel!
     @IBOutlet weak var splitFourLabel: UILabel!
     @IBOutlet weak var splitFiveLabel: UILabel!
+    @IBOutlet weak var splitSixLabel: UILabel!
+    @IBOutlet weak var splitSevenLabel: UILabel!
+    
+    @IBOutlet weak var percentLabel: UILabel!
+    @IBOutlet weak var percentAmountLabel: UILabel!
+    @IBOutlet weak var tipSlider: UISlider!
 
     var flagButton: UIButton!
     var barButtonItem: UIBarButtonItem!
     var currencySymbol: String!
+    var tipPercentage: Float!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,9 +64,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         billTextField.becomeFirstResponder()
         
         // retrieve defaults
-        let index    = Variables.defaults.integer(forKey: "controlIndex")
-        let percent  = Variables.defaults.double(forKey: "percent")
-        let isDarkTheme = Variables.defaults.bool(forKey: "theme")
+        tipPercentage = Variables.defaults.float(forKey: "percent")
         
         // first run of app there are no defaults so explicitly set currencySymbol
         currencySymbol = Variables.defaults.string(forKey: "currency") ?? Variables.foreignCurrencies[0]
@@ -69,22 +73,19 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let amount = self.loadBillAmount()
         
         // update selected segment
-        tipControl.selectedSegmentIndex = index
+        tipSlider.setValue(Float(tipPercentage), animated: true)
         
         // update the amount labels
-        self.updateLabels(for: amount, with: percent)
+        self.updateLabels(for: amount, with: tipPercentage)
         
         // update the flag
         self.setFlag(Variables.regionDictionary[currencySymbol!]!)
-        
-        // set the theme
-        self.setTheme(isDarkTheme)
     }
     
-    func updateLabels(for amount: Double, with percent: Double) {
+    func updateLabels(for amount: Float, with percent: Float) {
         
         // recalculate the amounts
-        let tip = amount * percent
+        let tip = amount * tipPercentage
         let total = amount + tip
         
         splitOneLabel.text   = setLocale(for: total, divideBy: 1)
@@ -92,10 +93,33 @@ class ViewController: UIViewController, UITextFieldDelegate {
         splitThreeLabel.text = setLocale(for: total, divideBy: 3)
         splitFourLabel.text  = setLocale(for: total, divideBy: 4)
         splitFiveLabel.text  = setLocale(for: total, divideBy: 5)
+        splitSixLabel.text   = setLocale(for: total, divideBy: 6)
+        splitSevenLabel.text = setLocale(for: total, divideBy: 7)
         currencyLabel.text   = currencySymbol
+        
+        percentLabel.text    = setLocale(for: tipPercentage, type: .percent)
+        percentAmountLabel.text = setLocale(for: tip, type: .currency)
     }
     
-    func setLocale(for amount: Double, divideBy quantity: Int) -> String? {
+    func setLocale(for amount: Float, type: NumberFormatter.Style) -> String? {
+        // set the locale for thousands separator
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = type
+        
+        if type == .percent {
+            numberFormatter.maximumFractionDigits = 0
+        } else if type == .currency {
+            numberFormatter.maximumFractionDigits = 2
+        }
+        
+        // determine which to use
+        let localeIdentifier = getLocaleIdentifier()
+        numberFormatter.locale = Locale(identifier: localeIdentifier)
+
+        return  numberFormatter.string(from: NSNumber(value: amount))
+    }
+    
+    func setLocale(for amount: Float, divideBy quantity: Int) -> String? {
         
         // set the locale for thousands separator
         let numberFormatter = NumberFormatter()
@@ -109,8 +133,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         numberFormatter.locale = Locale(identifier: localeIdentifier)
         
         // calculate per user quantity
-        let num = NSNumber(floatLiteral: amount)
-        let formattedTotal = num.doubleValue / Double(quantity)
+        let formattedTotal = amount / Float(quantity)
         
         return  numberFormatter.string(from: NSNumber(value: formattedTotal))
     }
@@ -135,35 +158,37 @@ class ViewController: UIViewController, UITextFieldDelegate {
         return defaultIdentifier
     }
     
-    func save(bill amount: Double) {
+    func save(bill amount: Float) {
         Variables.defaults.set(amount, forKey: "amount")
         Variables.defaults.synchronize()
     }
     
-    func loadBillAmount() -> Double {
+    func loadBillAmount() -> Float {
         // determines if app restarted within 10 mins and reuses amount if so
         let minutes  = Variables.defaults.integer(forKey: "minutes")
-        let amount = (minutes > 10) ? 0 : Variables.defaults.double(forKey: "amount")
+        let amount = (minutes > 10) ? 0 : Variables.defaults.float(forKey: "amount")
         billTextField.text = (amount < 1) ? "" : String(format: "%.2f", amount)
         
         return amount
     }
     
     func shouldAnimate() {
-        self.tipControl.alpha = 0
         self.splitOneLabel.alpha = 0
         self.splitTwoLabel.alpha = 0
         self.splitThreeLabel.alpha = 0
         self.splitFourLabel.alpha = 0
         self.splitFiveLabel.alpha = 0
+        self.splitSixLabel.alpha = 0
+        self.splitSevenLabel.alpha = 0
         
         UIView.animate(withDuration: 0.75, animations: {
-            self.tipControl.alpha = 1
             self.splitOneLabel.alpha = 1
             self.splitTwoLabel.alpha = 1
             self.splitThreeLabel.alpha = 1
             self.splitFourLabel.alpha = 1
             self.splitFiveLabel.alpha = 1
+            self.splitSixLabel.alpha = 1
+            self.splitSevenLabel.alpha = 1
         })
     }
     
@@ -177,31 +202,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.navigationItem.leftBarButtonItem = barButtonItem
     }
     
-    func setTheme(_ darkTheme: Bool) {
-        if darkTheme {
-            amountView.backgroundColor = UIColor.customBlue()
-            amountView.tintColor = UIColor.white
-            billTextField.textColor = UIColor.white
-            currencyLabel.textColor = UIColor.white
-            tipControl.tintColor = UIColor.white
-        }
-        else {
-            amountView.backgroundColor = UIColor.white
-            amountView.tintColor = UIColor.blue
-            billTextField.textColor = UIColor.darkGray
-            currencyLabel.textColor = UIColor.darkGray
-            tipControl.tintColor = UIColor.customBlue()
-        }
-    }
-    
     // MARK: IBActions
     @IBAction func onEditingChanged(_ sender: AnyObject) {
+        // round to nearest tenth
+        let precision: Float = 2.0
+        let multiplier: Float = pow(10.0, precision)
+        tipPercentage = round(tipSlider.value * multiplier) / multiplier
         
-        // determine selected percent
-        let tipPercentage = Variables.tipPercentages[tipControl.selectedSegmentIndex]
-
         // update the amount labels
-        if let currentAmount = Double(billTextField.text!) {
+        if let currentAmount = Float(billTextField.text!) {
             
             self.updateLabels(for: currentAmount, with: tipPercentage)
             

@@ -12,7 +12,6 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
 
     @IBOutlet weak var percentTextField: UITextField!
     @IBOutlet weak var currencyTextField: UITextField!
-    @IBOutlet weak var darkThemeSwitch: UISwitch!
 
     enum Picker: String {
         case Percent = "Percent"
@@ -25,9 +24,6 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     var pickerView = UIPickerView()
     var currentPickerName: Picker!
     
-    // determines index to select in ViewController UISegmentedControl
-    var controlIndex = 0
-
     override func viewDidLoad() {
         
         // setup delegates and datasources
@@ -53,13 +49,13 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
         
         let percent = Variables.defaults.double(forKey: "percent")
         let currency = Variables.defaults.string(forKey: "currency")
-        let isDarkTheme = Variables.defaults.bool(forKey: "theme")
+        let isLightTheme = Variables.defaults.bool(forKey: "theme")
         
         if percent > 0 {
             percentTextField.text = String(format: "%.2f", percent)
         }
         else {
-            percentTextField.text = Variables.tipPercentages[0].description
+            percentTextField.text = "\(Variables.tipPercentage)"
         }
         
         if currency == nil {
@@ -68,27 +64,18 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
         else {
             currencyTextField.text = currency
         }
-        
-        darkThemeSwitch.setOn(isDarkTheme, animated: true)
     }
     
     func saveSettings() {
         let percent = Double(percentTextField.text!)
-        let controlIndex = self.controlIndex
         let currency = self.currencyTextField.text
-        let isDarkTheme = self.darkThemeSwitch.isOn
         
         Variables.defaults.set(percent, forKey: "percent")
-        Variables.defaults.set(controlIndex, forKey: "controlIndex")
         Variables.defaults.set(currency, forKey: "currency")
-        Variables.defaults.set(isDarkTheme, forKey: "theme")
-        
         Variables.defaults.synchronize()
     }
     
     func setupPicker() {
-
-        percentTextField.inputView = pickerView
         currencyTextField.inputView = pickerView
     }
     
@@ -123,10 +110,7 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent: Int) -> Int {
         
-        if currentPickerName == .Percent {
-            return Variables.tipPercentages.count
-        }
-        else if currentPickerName == .Currency {
+        if currentPickerName == .Currency {
             return Variables.foreignCurrencies.count
         }
 
@@ -135,10 +119,7 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent: Int) -> String? {
         
-        if currentPickerName == .Percent {
-            return String(format: "%d", Int(Variables.tipPercentages[row] * 100))
-        }
-        else if currentPickerName == .Currency {
+        if currentPickerName == .Currency {
             return Variables.foreignCurrencies[row]
         }
         
@@ -147,11 +128,7 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent: Int) {
         
-        if currentPickerName == .Percent {
-            percentTextField.text = Variables.tipPercentages[row].description
-            self.controlIndex = row
-        }
-        else if currentPickerName == .Currency {
+        if currentPickerName == .Currency {
             currencyTextField.text = Variables.foreignCurrencies[row]
         }
     }

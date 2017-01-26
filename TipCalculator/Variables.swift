@@ -28,7 +28,7 @@ struct Variables {
     
     static let foreignCurrencies = Array(Variables.regionDictionary.keys)
     
-    static let tipPercentages = [0.18, 0.2, 0.22]
+    static let tipPercentage: Float = 0.15
     
     static let defaults = UserDefaults.standard
 }

@@ -521,15 +521,15 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Currency" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rwT-Lz-9Mo">
-                                                    <rect key="frame" x="12" y="6" width="200" height="35"/>
+                                                    <rect key="frame" x="12" y="6" width="90" height="35"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="$" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="x4c-4W-vHH">
-                                                    <rect key="frame" x="230" y="6" width="125" height="35"/>
+                                                    <rect key="frame" x="125" y="6" width="230" height="35"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="125" id="Wmq-6F-F12"/>
+                                                        <constraint firstAttribute="width" constant="230" id="Wmq-6F-F12"/>
                                                     </constraints>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -538,7 +538,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="rwT-Lz-9Mo" firstAttribute="top" secondItem="x4c-4W-vHH" secondAttribute="top" id="OXG-fr-jzh"/>
-                                                <constraint firstItem="x4c-4W-vHH" firstAttribute="leading" secondItem="rwT-Lz-9Mo" secondAttribute="trailing" constant="18" id="TZu-dR-3Qq"/>
+                                                <constraint firstItem="x4c-4W-vHH" firstAttribute="leading" secondItem="rwT-Lz-9Mo" secondAttribute="trailing" constant="23" id="TZu-dR-3Qq"/>
                                                 <constraint firstItem="rwT-Lz-9Mo" firstAttribute="leading" secondItem="Jj1-NJ-tq0" secondAttribute="leadingMargin" constant="4" id="VcI-ZE-65R"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="rwT-Lz-9Mo" secondAttribute="bottom" constant="-5.5" id="Z8h-IU-6Vq"/>
                                                 <constraint firstItem="rwT-Lz-9Mo" firstAttribute="top" secondItem="Jj1-NJ-tq0" secondAttribute="topMargin" constant="-2" id="hG1-Sa-e4T"/>
@@ -569,7 +569,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2015" y="451"/>
+            <point key="canvasLocation" x="2013.5999999999999" y="450.22488755622192"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="UCd-xF-FMF">

@@ -65,7 +65,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         // retrieve defaults
         tipPercentage = Variables.defaults.float(forKey: "percent")
-        let isLightTheme = Variables.defaults.bool(forKey: "theme")
         
         // first run of app there are no defaults so explicitly set currencySymbol
         currencySymbol = Variables.defaults.string(forKey: "currency") ?? Variables.foreignCurrencies[0]
@@ -81,9 +80,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         // update the flag
         self.setFlag(Variables.regionDictionary[currencySymbol!]!)
-        
-        // set the theme
-        self.setTheme(isLightTheme)
     }
     
     func updateLabels(for amount: Float, with percent: Float) {
@@ -204,21 +200,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         barButtonItem = UIBarButtonItem(customView: flagButton)
         self.navigationItem.leftBarButtonItem = barButtonItem
-    }
-    
-    func setTheme(_ lightTheme: Bool) {
-        if lightTheme {
-            amountView.backgroundColor = UIColor.white
-            amountView.tintColor = UIColor.blue
-            billTextField.textColor = UIColor.darkGray
-            currencyLabel.textColor = UIColor.darkGray
-        }
-        else {
-            amountView.backgroundColor = UIColor.customBlue()
-            amountView.tintColor = UIColor.white
-            billTextField.textColor = UIColor.white
-            currencyLabel.textColor = UIColor.white
-        }
     }
     
     // MARK: IBActions

@@ -12,7 +12,6 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
 
     @IBOutlet weak var percentTextField: UITextField!
     @IBOutlet weak var currencyTextField: UITextField!
-    @IBOutlet weak var darkThemeSwitch: UISwitch!
 
     enum Picker: String {
         case Percent = "Percent"
@@ -65,19 +64,14 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
         else {
             currencyTextField.text = currency
         }
-        
-        darkThemeSwitch.setOn(isLightTheme, animated: true)
     }
     
     func saveSettings() {
         let percent = Double(percentTextField.text!)
         let currency = self.currencyTextField.text
-        let isDarkTheme = self.darkThemeSwitch.isOn
         
         Variables.defaults.set(percent, forKey: "percent")
         Variables.defaults.set(currency, forKey: "currency")
-        Variables.defaults.set(isDarkTheme, forKey: "theme")
-        
         Variables.defaults.synchronize()
     }
     

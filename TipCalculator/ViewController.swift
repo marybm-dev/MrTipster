@@ -50,9 +50,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // updates the flag to match currency region
-        self.setFlag(Variables.Region.USA)
-        
         // get stored defaults and display on UI
         self.setupView()
     }
@@ -69,20 +66,20 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // first run of app there are no defaults so explicitly set currencySymbol
         currencySymbol = Variables.defaults.string(forKey: "currency") ?? Variables.foreignCurrencies[0]
         
-        // reload the previuos tip bill amount
+        // reload the previous tip bill amount
         let amount = self.loadBillAmount()
         
-        // update selected segment
-        tipSlider.setValue(Float(tipPercentage), animated: true)
+        // reload tip value for slider
+        tipSlider.setValue(tipPercentage, animated: true)
         
         // update the amount labels
-        self.updateLabels(for: amount, with: tipPercentage)
+        self.updateLabels(for: amount)
         
         // update the flag
         self.setFlag(Variables.regionDictionary[currencySymbol!]!)
     }
     
-    func updateLabels(for amount: Float, with percent: Float) {
+    func updateLabels(for amount: Float) {
         
         // recalculate the amounts
         let tip = amount * tipPercentage
@@ -124,7 +121,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // set the locale for thousands separator
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = NumberFormatter.Style.decimal
-        
         numberFormatter.numberStyle = .currency
         numberFormatter.maximumFractionDigits = 2
         
@@ -132,9 +128,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let localeIdentifier = getLocaleIdentifier()
         numberFormatter.locale = Locale(identifier: localeIdentifier)
         
-        // calculate per user quantity
+        // calculate split amount
         let formattedTotal = amount / Float(quantity)
-        
         return  numberFormatter.string(from: NSNumber(value: formattedTotal))
     }
     
@@ -211,8 +206,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         // update the amount labels
         if let currentAmount = Float(billTextField.text!) {
-            
-            self.updateLabels(for: currentAmount, with: tipPercentage)
+            self.updateLabels(for: currentAmount)
             
             // store the amount to display within 10 mins
             self.save(bill: currentAmount)

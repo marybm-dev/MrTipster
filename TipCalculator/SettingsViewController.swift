@@ -46,30 +46,15 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     
     // MARK: Settings Logic
     func loadSettings() {
-        
         let percent = Variables.defaults.double(forKey: "percent")
         let currency = Variables.defaults.string(forKey: "currency")
-        let isLightTheme = Variables.defaults.bool(forKey: "theme")
-        
-        if percent > 0 {
-            percentTextField.text = String(format: "%.2f", percent)
-        }
-        else {
-            percentTextField.text = "\(Variables.tipPercentage)"
-        }
-        
-        if currency == nil {
-            currencyTextField.text = Variables.foreignCurrencies[0]
-        }
-        else {
-            currencyTextField.text = currency
-        }
+        percentTextField.text = percent > 0 ? String(format: "%.2f", percent) : "\(Variables.tipPercentage)"
+        currencyTextField.text = currency == nil ? Variables.foreignCurrencies[0] : currency
     }
     
     func saveSettings() {
         let percent = Double(percentTextField.text!)
         let currency = self.currencyTextField.text
-        
         Variables.defaults.set(percent, forKey: "percent")
         Variables.defaults.set(currency, forKey: "currency")
         Variables.defaults.synchronize()
@@ -80,24 +65,13 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     }
     
     func updatePicker(_ textField: UITextField) {
-        
-        if textField == percentTextField {
-            currentPickerName = .Percent
-        }
-        else if textField == currencyTextField {
-            currentPickerName = .Currency
-        }
-        else {
-            currentPickerName = .Null
-        }
-        
+        currentPickerName = textField == currencyTextField ? .Currency : .Null
         pickerView.reloadAllComponents()
     }
 
     // MARK: Text Field Delegate
     func textFieldDidBeginEditing(_ textField: UITextField) {
         activeField = textField
-        
         if textField == percentTextField || textField == currencyTextField {
             updatePicker(textField)
         }
@@ -109,25 +83,14 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent: Int) -> Int {
-        
-        if currentPickerName == .Currency {
-            return Variables.foreignCurrencies.count
-        }
-
-        return 0
+        return currentPickerName == .Currency ? Variables.foreignCurrencies.count : 0
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent: Int) -> String? {
-        
-        if currentPickerName == .Currency {
-            return Variables.foreignCurrencies[row]
-        }
-        
-        return ""
+        return currentPickerName == .Currency ? Variables.foreignCurrencies[row] : nil
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent: Int) {
-        
         if currentPickerName == .Currency {
             currencyTextField.text = Variables.foreignCurrencies[row]
         }

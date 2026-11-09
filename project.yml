@@ -1,0 +1,78 @@
+name: MrTipster
+options:
+  bundleIdPrefix: com.marybm
+  deploymentTarget:
+    iOS: "18.0"
+  createIntermediateGroups: true
+  developmentLanguage: en
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    SWIFT_STRICT_CONCURRENCY: complete
+    MARKETING_VERSION: "2.0"
+    CURRENT_PROJECT_VERSION: "1"
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    DEAD_CODE_STRIPPING: YES
+targets:
+  MrTipster:
+    type: application
+    platform: iOS
+    sources:
+      - path: MrTipster
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.marybm.mrtipster
+        PRODUCT_NAME: MrTipster
+        INFOPLIST_KEY_CFBundleDisplayName: Mr Tipster
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+        INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.finance
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        TARGETED_DEVICE_FAMILY: "1,2"
+        CODE_SIGN_STYLE: Automatic
+        ENABLE_PREVIEWS: YES
+    info:
+      path: MrTipster/Resources/Info.plist
+      properties:
+        UILaunchScreen:
+          UIColorName: LaunchBackground
+  MrTipsterTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: MrTipsterTests
+    dependencies:
+      - target: MrTipster
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.marybm.mrtipster.tests
+        GENERATE_INFOPLIST_FILE: YES
+        BUNDLE_LOADER: $(TEST_HOST)
+        TEST_HOST: $(BUILT_PRODUCTS_DIR)/MrTipster.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MrTipster
+  MrTipsterUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: MrTipsterUITests
+    dependencies:
+      - target: MrTipster
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.marybm.mrtipster.uitests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_TARGET_NAME: MrTipster
+schemes:
+  MrTipster:
+    build:
+      targets:
+        MrTipster: all
+        MrTipsterTests: [test]
+        MrTipsterUITests: [test]
+    test:
+      targets:
+        - MrTipsterTests
+        - MrTipsterUITests

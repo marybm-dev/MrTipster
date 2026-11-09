@@ -25,9 +25,22 @@ struct SettingsView: View {
                             incrementLabel: String(localized: "Increase default tip"),
                             compact: true
                         )
-                        .accessibilityIdentifier("defaultTipStepper")
                     }
-                    .accessibilityElement(children: .contain)
+                    // A Form row merges its children, which hides the stepper's
+                    // adjustable behavior, so the row itself is the adjustable element.
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel("Default tip")
+                    .accessibilityValue(percentText)
+                    .accessibilityAdjustableAction { direction in
+                        switch direction {
+                        case .increment: stepDefaultTip(+1)
+                        case .decrement: stepDefaultTip(-1)
+                        @unknown default: break
+                        }
+                    }
+                    .accessibilityAction(named: "Increase default tip") { stepDefaultTip(+1) }
+                    .accessibilityAction(named: "Decrease default tip") { stepDefaultTip(-1) }
+                    .accessibilityIdentifier("defaultTipStepper")
                 } header: {
                     SectionHeader("Tipping")
                 } footer: {
@@ -88,6 +101,10 @@ struct SettingsView: View {
             }
         }
         .tint(Theme.accent)
+    }
+
+    private func stepDefaultTip(_ delta: Int) {
+        settings.defaultTipPercent = (settings.defaultTipPercent + delta).clamped(to: TipCalculator.tipRange)
     }
 
     private var percentText: String {

@@ -69,9 +69,10 @@ struct CalculatorView: View {
         .onChange(of: model.billText) { model.billTextDidChange() }
         .task(id: model.billText) {
             // After a pause in typing, tell VoiceOver users the new total.
-            guard model.hasBill else { return }
+            // Only while editing, not when a restored bill appears at launch.
+            guard model.hasBill, billFocused else { return }
             try? await Task.sleep(for: .seconds(1.2))
-            guard !Task.isCancelled else { return }
+            guard !Task.isCancelled, billFocused else { return }
             Announcer.announce(model.resultSummary)
         }
         .onChange(of: model.settings.roundUp) { announceResult() }
@@ -126,6 +127,7 @@ struct CalculatorView: View {
                 .monospacedDigit()
                 .tint(.white)
                 .accessibilityIdentifier("billField")
+                .accessibilityLabel("Bill amount")
                 .accessibilityValue(model.hasBill ? money.format(model.billAmount) : "")
                 if !money.symbolLeads { symbol }
 

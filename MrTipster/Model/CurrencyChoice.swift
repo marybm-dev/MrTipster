@@ -19,15 +19,9 @@ enum CurrencyChoice: String, CaseIterable, Identifiable, Sendable {
         }
     }
 
-    var flag: String {
-        switch self {
-        case .automatic: "🌐"
-        case .usd: "🇺🇸"
-        case .eur: "🇪🇺"
-        case .gbp: "🇬🇧"
-        case .jpy: "🇯🇵"
-        case .inr: "🇮🇳"
-        }
+    /// Flag image from the 2017 app's assets; nil for automatic (uses a globe symbol).
+    var flagImageName: String? {
+        self == .automatic ? nil : "Flag-\(rawValue)"
     }
 
     func displayName(locale: Locale = .current) -> String {
@@ -68,11 +62,11 @@ struct Money: Sendable {
         return !first.isNumber
     }
 
-    func format(_ amount: Decimal) -> String {
+    func format(_ amount: Decimal, fractionDigits digits: Int? = nil) -> String {
         amount.formatted(
             .currency(code: code)
                 .locale(locale)
-                .precision(.fractionLength(fractionDigits))
+                .precision(.fractionLength(digits ?? fractionDigits))
         )
     }
 

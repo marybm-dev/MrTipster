@@ -4,18 +4,20 @@ import SwiftUI
 struct MrTipsterApp: App {
     @State private var model: TipperModel
     private let autoFocus: Bool
+    private let screenshotOptions: CalculatorView.DebugOptions
 
     init() {
         let launch = LaunchOptions()
         launch.prepare()
         _model = State(initialValue: TipperModel(settings: AppSettings()))
         autoFocus = launch.autoFocus
+        screenshotOptions = launch.debugOptions
         launch.apply(to: model)
     }
 
     var body: some Scene {
         WindowGroup {
-            CalculatorView(model: model, autoFocus: autoFocus)
+            CalculatorView(model: model, autoFocus: autoFocus, debug: screenshotOptions)
         }
     }
 }
@@ -26,7 +28,10 @@ struct MrTipsterApp: App {
 private struct LaunchOptions {
     #if DEBUG
     private let defaults = UserDefaults.standard
-    var autoFocus: Bool { defaults.object(forKey: "autoFocus") as? Bool ?? true }
+    var autoFocus: Bool { defaults.object(forKey: "autoFocus") == nil || defaults.bool(forKey: "autoFocus") }
+    var debugOptions: CalculatorView.DebugOptions {
+        .init(scrollToBottom: defaults.bool(forKey: "scrollToBottom"), showSettings: defaults.bool(forKey: "showSettings"))
+    }
 
     func prepare() {
         if defaults.bool(forKey: "resetState"), let domain = Bundle.main.bundleIdentifier {
@@ -45,6 +50,7 @@ private struct LaunchOptions {
     }
     #else
     var autoFocus: Bool { true }
+    var debugOptions: CalculatorView.DebugOptions { .init() }
     func prepare() {}
     @MainActor func apply(to model: TipperModel) {}
     #endif

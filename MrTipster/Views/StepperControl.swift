@@ -19,6 +19,8 @@ struct StepperControl: View {
 
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @ScaledMetric(relativeTo: .title3) private var buttonSize: CGFloat = 52
+    @ScaledMetric(relativeTo: .body) private var compactButtonSize: CGFloat = 44
 
     var body: some View {
         Group {
@@ -77,7 +79,7 @@ struct StepperControl: View {
         } label: {
             Image(systemName: isIncrement ? "plus" : "minus")
                 .font(.system(compact ? .body : .title3, weight: .bold))
-                .frame(minWidth: compact ? 44 : 52, minHeight: compact ? 44 : 52)
+                .frame(width: compact ? compactButtonSize : buttonSize, height: compact ? compactButtonSize : buttonSize)
                 .background(Theme.chip, in: .circle)
                 .overlay { ContrastBorder(shape: Circle()) }
                 .contentShape(.circle)

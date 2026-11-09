@@ -3,12 +3,20 @@ import SwiftUI
 struct CalculatorView: View {
     @Bindable var model: TipperModel
     var autoFocus = true
+    var debug = DebugOptions()
+
+    /// Launch-argument hooks for screenshots and UI tests (Debug builds only).
+    struct DebugOptions {
+        var scrollToBottom = false
+        var showSettings = false
+    }
 
     @FocusState private var billFocused: Bool
     @State private var showingSettings = false
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @ScaledMetric(relativeTo: .largeTitle) private var headlineSize: CGFloat = 48
 
     static let presets = [15, 18, 20, 22, 25]
 
@@ -31,6 +39,7 @@ struct CalculatorView: View {
                 .frame(maxWidth: .infinity)
             }
             .scrollDismissesKeyboard(.interactively)
+            .defaultScrollAnchor(debug.scrollToBottom ? .bottom : .top)
             .background(Theme.background.ignoresSafeArea())
             .navigationTitle("Mr Tipster")
             .navigationBarTitleDisplayMode(.inline)
@@ -54,6 +63,7 @@ struct CalculatorView: View {
         }
         .tint(Theme.accent)
         .task {
+            if debug.showSettings { showingSettings = true }
             if autoFocus { billFocused = true }
         }
         .onChange(of: model.billText) { model.billTextDidChange() }
@@ -108,8 +118,7 @@ struct CalculatorView: View {
                 TextField(
                     "Bill amount",
                     text: $model.billText,
-                    prompt: Text(money.zeroPlaceholder).foregroundStyle(.white.opacity(0.9)),
-                    axis: .vertical
+                    prompt: Text(money.zeroPlaceholder).foregroundStyle(.white.opacity(0.9))
                 )
                 .keyboardType(.decimalPad)
                 .focused($billFocused)
@@ -173,7 +182,7 @@ struct CalculatorView: View {
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(Theme.ink2)
                 amountText(result.isSplit ? result.perPerson : result.total)
-                    .font(.system(size: 48, weight: .bold, design: .rounded))
+                    .font(.system(size: headlineSize, weight: .bold, design: .rounded))
                     .foregroundStyle(Theme.accent)
                     .accessibilityIdentifier("headlineAmount")
             }
@@ -288,7 +297,7 @@ struct CalculatorView: View {
     }
 
     private var roundingExplanation: String {
-        let increment = money.format(TipCalculator.roundingIncrement(fractionDigits: money.fractionDigits))
+        let increment = money.format(TipCalculator.roundingIncrement(fractionDigits: money.fractionDigits), fractionDigits: 0)
         return result.isSplit
             ? String(localized: "Round each share up to the next \(increment).")
             : String(localized: "Round the total up to the next \(increment).")

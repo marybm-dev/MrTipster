@@ -29,58 +29,58 @@ struct SettingsView: View {
                     }
                     .accessibilityElement(children: .contain)
                 } header: {
-                    Text("Tipping")
+                    SectionHeader("Tipping")
                 } footer: {
                     Text("Every new bill starts with this tip.")
+                        .foregroundStyle(Theme.ink2)
                 }
 
                 Section {
                     Picker("Currency", selection: $settings.currency) {
                         ForEach(CurrencyChoice.allCases) { choice in
-                            HStack(spacing: 12) {
-                                Text(choice.flag)
-                                    .accessibilityHidden(true)
-                                Text(choice.displayName())
-                            }
+                            CurrencyRow(choice: choice)
                             .tag(choice)
                         }
                     }
                     .pickerStyle(.inline)
                     .labelsHidden()
                 } header: {
-                    Text("Currency")
+                    SectionHeader("Currency")
                 } footer: {
                     Text("Amounts use your device's number format.")
+                        .foregroundStyle(Theme.ink2)
                 }
 
                 Section {
-                    HStack(spacing: 16) {
-                        MascotView(mood: .pleased, color: Theme.accent)
-                            .frame(width: 56)
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("Mr Tipster")
-                                .font(.headline)
-                            Text("Version \(version)")
-                                .font(.subheadline)
-                                .foregroundStyle(Theme.ink2)
-                        }
+                    VStack(spacing: 8) {
+                        MascotView(mood: .delighted, color: Theme.accent)
+                            .frame(width: 112)
+                            .padding(.vertical, 8)
+                        Text("Mr Tipster")
+                            .font(.system(.title2, design: .rounded, weight: .bold))
+                            .accessibilityAddTraits(.isHeader)
+                        Text("Version \(version)")
+                            .font(.subheadline)
+                            .foregroundStyle(Theme.ink2)
+                        Text("Originally built in 2017 for CodePath. Revived in 2026, mustache intact.")
+                            .font(.subheadline)
+                            .foregroundStyle(Theme.ink2)
+                            .multilineTextAlignment(.center)
+                            .padding(.top, 4)
                     }
-                    .accessibilityElement(children: .combine)
-                    Text("Originally built in 2017 for CodePath. Revived in 2026, mustache intact.")
-                        .font(.subheadline)
-                        .foregroundStyle(Theme.ink2)
-                } header: {
-                    Text("About")
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 8)
                 }
             }
             .scrollContentBackground(.hidden)
+            // Keep the first header clear of the navigation bar's scroll-edge fade.
+            .contentMargins(.top, 16, for: .scrollContent)
             .background(Theme.background.ignoresSafeArea())
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") { dismiss() }
-                        .fontWeight(.semibold)
                 }
             }
         }
@@ -93,5 +93,42 @@ struct SettingsView: View {
 
     private var version: String {
         Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "2.0"
+    }
+}
+
+private struct SectionHeader: View {
+    let title: LocalizedStringKey
+    init(_ title: LocalizedStringKey) { self.title = title }
+
+    var body: some View {
+        Text(title)
+            .font(.subheadline.weight(.semibold))
+            .foregroundStyle(Theme.ink2)
+            .textCase(nil)
+            .accessibilityAddTraits(.isHeader)
+    }
+}
+
+private struct CurrencyRow: View {
+    let choice: CurrencyChoice
+    @ScaledMetric(relativeTo: .body) private var flagSize: CGFloat = 28
+
+    var body: some View {
+        HStack(spacing: 12) {
+            Group {
+                if let name = choice.flagImageName {
+                    Image(decorative: name)
+                        .resizable()
+                        .scaledToFit()
+                } else {
+                    Image(systemName: "globe")
+                        .font(.title3)
+                        .foregroundStyle(Theme.accent)
+                }
+            }
+            .frame(width: flagSize, height: flagSize)
+            .accessibilityHidden(true)
+            Text(choice.displayName())
+        }
     }
 }

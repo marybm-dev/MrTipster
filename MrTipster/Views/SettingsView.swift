@@ -34,12 +34,13 @@ struct SettingsView: View {
                     Text("Every new bill starts with this tip.")
                         .foregroundStyle(Theme.ink2)
                 }
+                .listRowBackground(Theme.card)
 
                 Section {
                     Picker("Currency", selection: $settings.currency) {
                         ForEach(CurrencyChoice.allCases) { choice in
                             CurrencyRow(choice: choice)
-                            .tag(choice)
+                                .tag(choice)
                         }
                     }
                     .pickerStyle(.inline)
@@ -50,6 +51,7 @@ struct SettingsView: View {
                     Text("Amounts use your device's number format.")
                         .foregroundStyle(Theme.ink2)
                 }
+                .listRowBackground(Theme.card)
 
                 Section {
                     VStack(spacing: 8) {
@@ -71,6 +73,7 @@ struct SettingsView: View {
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 8)
                 }
+                .listRowBackground(Theme.card)
             }
             .scrollContentBackground(.hidden)
             // Keep the first header clear of the navigation bar's scroll-edge fade.
@@ -126,7 +129,7 @@ private struct CurrencyRow: View {
                         .foregroundStyle(Theme.accent)
                 }
             }
-            .frame(width: flagSize, height: flagSize)
+            .frame(width: min(flagSize, 40), height: min(flagSize, 40))
             .accessibilityHidden(true)
             Text(choice.displayName())
         }

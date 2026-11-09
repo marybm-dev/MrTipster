@@ -79,7 +79,7 @@ struct StepperControl: View {
         } label: {
             Image(systemName: isIncrement ? "plus" : "minus")
                 .font(.system(compact ? .body : .title3, weight: .bold))
-                .frame(width: compact ? compactButtonSize : buttonSize, height: compact ? compactButtonSize : buttonSize)
+                .frame(width: circleSize, height: circleSize)
                 .background(Theme.chip, in: .circle)
                 .overlay { ContrastBorder(shape: Circle()) }
                 .contentShape(.circle)
@@ -89,6 +89,11 @@ struct StepperControl: View {
         .disabled(!enabled)
         .opacity(enabled ? 1 : 0.4)
         .buttonRepeatBehavior(.enabled)
+    }
+
+    /// Grows with Dynamic Type so the glyph never clips, but stops at a sane size.
+    private var circleSize: CGFloat {
+        min(compact ? compactButtonSize : buttonSize, 88)
     }
 
     private func step(_ delta: Int) {

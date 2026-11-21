@@ -153,6 +153,74 @@ struct MoneyTests {
     }
 }
 
+@Suite("Currency choice")
+struct CurrencyChoiceTests {
+    private let us = Locale(identifier: "en_US")
+
+    @Test func savedValuesFromEarlierBuildsStillLoad() {
+        #expect(CurrencyChoice(rawValue: "automatic") == .automatic)
+        #expect(CurrencyChoice(rawValue: "JPY") == .jpy)
+        #expect(CurrencyChoice(rawValue: "eur") == .eur)
+    }
+
+    @Test func rejectsUnknownAndNonCurrencyCodes() {
+        #expect(CurrencyChoice(rawValue: "ZZZ") == nil)
+        #expect(CurrencyChoice(rawValue: "XAU") == nil) // gold
+        #expect(CurrencyChoice(rawValue: "XOF") != nil) // West African CFA franc
+    }
+
+    @Test func listCoversEverydayCurrencies() {
+        let codes = Set(CurrencyChoice.all(locale: us).map(\.rawValue))
+        #expect(codes.count > 100)
+        #expect(codes.isSuperset(of: ["USD", "EUR", "GBP", "JPY", "INR", "MXN", "KRW", "BRL", "CHF", "VND"]))
+    }
+
+    @Test func listIsSortedByLocalizedName() {
+        let names = CurrencyChoice.all(locale: us).map { CurrencyChoice.name(for: $0.rawValue, locale: us) }
+        #expect(names == names.sorted { $0.localizedStandardCompare($1) == .orderedAscending })
+    }
+
+    @Test func suggestionsStartWithRegionAndHaveNoDuplicates() {
+        let suggested = CurrencyChoice.suggested(locale: Locale(identifier: "es_MX"), preferredLanguages: ["es-MX", "en-US", "fr-FR"])
+        #expect(suggested.first == CurrencyChoice(code: "MXN"))
+        #expect(suggested.map(\.rawValue).prefix(3) == ["MXN", "USD", "EUR"])
+        #expect(Set(suggested).count == suggested.count)
+        #expect(suggested.count <= 6)
+    }
+
+    @Test func searchMatchesNameCodeAndSymbol() {
+        let yen = CurrencyChoice.jpy
+        #expect(yen.matches("yen", locale: us))
+        #expect(yen.matches("jpy", locale: us))
+        #expect(yen.matches("¥", locale: us))
+        #expect(!yen.matches("euro", locale: us))
+        #expect(CurrencyChoice(code: "EUR").matches("euro", locale: Locale(identifier: "de_DE")))
+    }
+
+    @Test func flags() {
+        #expect(CurrencyChoice.usd.flag == "🇺🇸")
+        #expect(CurrencyChoice.eur.flag == "🇪🇺")
+        #expect(CurrencyChoice(code: "XOF").flag == nil)
+        #expect(CurrencyChoice.automatic.flag == nil)
+    }
+}
+
+@Suite("Rounding steps")
+struct RoundingStepTests {
+    @Test(arguments: [("USD", 2, Decimal(1)), ("EUR", 2, 1), ("INR", 2, 1), ("JPY", 0, 100),
+                      ("KRW", 0, 1000), ("VND", 0, 10000), ("IDR", 2, 10000), ("CLP", 0, 1000), ("ISK", 0, 100)])
+    func step(code: String, digits: Int, expected: Decimal) {
+        #expect(TipCalculator.roundingIncrement(code: code, fractionDigits: digits) == expected)
+    }
+
+    @Test func wonRoundsToThousand() {
+        let money = Money(code: "KRW", locale: Locale(identifier: "ko_KR"))
+        let r = TipCalculator.breakdown(bill: d("45300"), tipPercent: 10, people: 1, roundUp: true,
+                                        fractionDigits: money.fractionDigits, roundingIncrement: money.roundingIncrement)
+        #expect(r.total == d("50000"))
+    }
+}
+
 @Suite("Mood")
 struct MoodTests {
     @Test(arguments: [(0, Mood.unimpressed), (9, .unimpressed), (10, .content), (15, .content),

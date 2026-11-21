@@ -70,7 +70,8 @@ final class TipperModel {
             tipPercent: tipPercent,
             people: people,
             roundUp: settings.roundUp,
-            fractionDigits: money.fractionDigits
+            fractionDigits: money.fractionDigits,
+            roundingIncrement: money.roundingIncrement
         )
     }
 

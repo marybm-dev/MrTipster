@@ -17,6 +17,7 @@
 		B437BF3C96C619D92ABEECC0 /* MrTipsterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9672282ABFB09FBFAA479709 /* MrTipsterApp.swift */; };
 		B9A50FCD00F2FB35A8483AEB /* BillInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC65BE8EF0BBE3AF6F150927 /* BillInput.swift */; };
 		B9DBB88F0F2105C2311760FE /* StepperControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EFE9589A4C61562D16889A /* StepperControl.swift */; };
+		C2E07A9C8A31180BED2E38C7 /* CurrencyPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B8FBDB20CB904F3108A35C /* CurrencyPickerView.swift */; };
 		C6CC5E2B87E1D0DEE6F14CEA /* TipperModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C5C80C761EE7F0B1CCC586 /* TipperModel.swift */; };
 		C90D7450023D2C64D3832CC2 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F971A6811840346622AC02 /* SettingsView.swift */; };
 		CEB55C8B0764D39808FB4DBC /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD7F0D5D7C5A59CA2112A45 /* Theme.swift */; };
@@ -65,6 +66,7 @@
 		E5F971A6811840346622AC02 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		EC65BE8EF0BBE3AF6F150927 /* BillInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillInput.swift; sourceTree = "<group>"; };
 		F99170A143C552B98DC2CD23 /* MascotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MascotView.swift; sourceTree = "<group>"; };
+		F9B8FBDB20CB904F3108A35C /* CurrencyPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPickerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -95,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				BEFE2338D1B1E6E1DED4C7C6 /* CalculatorView.swift */,
+				F9B8FBDB20CB904F3108A35C /* CurrencyPickerView.swift */,
 				F99170A143C552B98DC2CD23 /* MascotView.swift */,
 				5E9C07302DE2EC4A4F509443 /* MustachePath.swift */,
 				E5F971A6811840346622AC02 /* SettingsView.swift */,
@@ -223,12 +226,17 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
+					1029D926363C2BA09AD96D76 = {
+						DevelopmentTeam = 6NZ47HJYTD;
+					};
 					C0F9BEE9DF739384C311978B = {
+						DevelopmentTeam = 6NZ47HJYTD;
 						TestTargetID = E0665DDDB866415513E49DC0;
 					};
 					E0665DDDB866415513E49DC0 = {
+						DevelopmentTeam = 6NZ47HJYTD;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -274,6 +282,7 @@
 				F64C21EBE738D98F0D2E17EE /* BillSession.swift in Sources */,
 				EC53CBF5AC110DE5ABB7F8F3 /* CalculatorView.swift in Sources */,
 				276F0680A216B7DD8C821075 /* CurrencyChoice.swift in Sources */,
+				C2E07A9C8A31180BED2E38C7 /* CurrencyPickerView.swift in Sources */,
 				5E840083CE6662FF85C847DB /* MascotView.swift in Sources */,
 				98E78AB51AEE9AE2CB01AD30 /* Mood.swift in Sources */,
 				B437BF3C96C619D92ABEECC0 /* MrTipsterApp.swift in Sources */,
@@ -329,7 +338,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.marybm.mrtipster.uitests;
+				PRODUCT_BUNDLE_IDENTIFIER = MMartinez.TipCalculator.uitests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = MrTipster;
@@ -356,7 +365,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.marybm.mrtipster;
+				PRODUCT_BUNDLE_IDENTIFIER = MMartinez.TipCalculator;
 				PRODUCT_NAME = MrTipster;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -400,6 +409,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 6NZ47HJYTD;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -434,7 +444,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.marybm.mrtipster.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = MMartinez.TipCalculator.tests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MrTipster.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MrTipster";
@@ -478,6 +488,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 6NZ47HJYTD;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -519,7 +530,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.marybm.mrtipster.uitests;
+				PRODUCT_BUNDLE_IDENTIFIER = MMartinez.TipCalculator.uitests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = MrTipster;
@@ -536,7 +547,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.marybm.mrtipster.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = MMartinez.TipCalculator.tests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MrTipster.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MrTipster";
@@ -563,7 +574,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.marybm.mrtipster;
+				PRODUCT_BUNDLE_IDENTIFIER = MMartinez.TipCalculator;
 				PRODUCT_NAME = MrTipster;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

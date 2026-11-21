@@ -13,6 +13,7 @@ settings:
     CURRENT_PROJECT_VERSION: "1"
     ENABLE_USER_SCRIPT_SANDBOXING: YES
     DEAD_CODE_STRIPPING: YES
+    DEVELOPMENT_TEAM: 6NZ47HJYTD
 targets:
   MrTipster:
     type: application
@@ -21,7 +22,7 @@ targets:
       - path: MrTipster
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.marybm.mrtipster
+        PRODUCT_BUNDLE_IDENTIFIER: MMartinez.TipCalculator
         PRODUCT_NAME: MrTipster
         INFOPLIST_KEY_CFBundleDisplayName: Mr Tipster
         GENERATE_INFOPLIST_FILE: YES
@@ -49,7 +50,7 @@ targets:
       - target: MrTipster
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.marybm.mrtipster.tests
+        PRODUCT_BUNDLE_IDENTIFIER: MMartinez.TipCalculator.tests
         GENERATE_INFOPLIST_FILE: YES
         BUNDLE_LOADER: $(TEST_HOST)
         TEST_HOST: $(BUILT_PRODUCTS_DIR)/MrTipster.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MrTipster
@@ -62,7 +63,7 @@ targets:
       - target: MrTipster
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.marybm.mrtipster.uitests
+        PRODUCT_BUNDLE_IDENTIFIER: MMartinez.TipCalculator.uitests
         GENERATE_INFOPLIST_FILE: YES
         TEST_TARGET_NAME: MrTipster
 schemes:

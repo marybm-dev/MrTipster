@@ -50,14 +50,12 @@ struct SettingsView: View {
                 .listRowBackground(Theme.card)
 
                 Section {
-                    Picker("Currency", selection: $settings.currency) {
-                        ForEach(CurrencyChoice.allCases) { choice in
-                            CurrencyRow(choice: choice)
-                                .tag(choice)
-                        }
+                    NavigationLink {
+                        CurrencyPickerView(selection: $settings.currency)
+                    } label: {
+                        CurrencyLabel(choice: settings.currency)
                     }
-                    .pickerStyle(.inline)
-                    .labelsHidden()
+                    .accessibilityIdentifier("currencyRow")
                 } header: {
                     SectionHeader("Currency")
                 } footer: {
@@ -129,26 +127,21 @@ private struct SectionHeader: View {
     }
 }
 
-private struct CurrencyRow: View {
+/// The Settings row: flag, currency name, and code with symbol, e.g. "EUR · €".
+private struct CurrencyLabel: View {
     let choice: CurrencyChoice
-    @ScaledMetric(relativeTo: .body) private var flagSize: CGFloat = 28
 
     var body: some View {
+        let money = Money(code: choice.code())
         HStack(spacing: 12) {
-            Group {
-                if let name = choice.flagImageName {
-                    Image(decorative: name)
-                        .resizable()
-                        .scaledToFit()
-                } else {
-                    Image(systemName: "globe")
-                        .font(.title3)
-                        .foregroundStyle(Theme.accent)
-                }
-            }
-            .frame(width: min(flagSize, 40), height: min(flagSize, 40))
-            .accessibilityHidden(true)
+            CurrencyFlag(choice: choice)
             Text(choice.displayName())
+            Spacer(minLength: 8)
+            Text(CurrencyPickerView.detail(for: money))
+                .foregroundStyle(Theme.ink2)
         }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Currency")
+        .accessibilityValue(choice.displayName())
     }
 }

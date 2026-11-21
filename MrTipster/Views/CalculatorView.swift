@@ -295,11 +295,11 @@ struct CalculatorView: View {
     }
 
     private func peopleText(_ count: Int) -> String {
-        String(localized: "\(count) people")
+        count == 1 ? String(localized: "1 person") : String(localized: "\(count) people")
     }
 
     private var roundingExplanation: String {
-        let increment = money.format(TipCalculator.roundingIncrement(fractionDigits: money.fractionDigits), fractionDigits: 0)
+        let increment = money.format(money.roundingIncrement, fractionDigits: 0)
         return result.isSplit
             ? String(localized: "Round each share up to the next \(increment).")
             : String(localized: "Round the total up to the next \(increment).")
